@@ -35,7 +35,7 @@ class FunctionDirectory():
                 'bool' : 0
             }
         }
-
+#EEEEEEEEE"
     """ Check if a function exists in the list """
     def search_function(self, func_name):
         return func_name in self.func_list.keys()

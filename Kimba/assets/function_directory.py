@@ -36,6 +36,7 @@ class FunctionDirectory():
             }
         }
 #EEEEEEEEE"
+#AAAAAAAA
     """ Check if a function exists in the list """
     def search_function(self, func_name):
         return func_name in self.func_list.keys()
@@ -61,7 +62,7 @@ class FunctionDirectory():
     def print_directory(self):
         for p in self.func_list:
             print (p)
-        
+
 
 if __name__ == '__main__':
     params = ['par1', 'par2']

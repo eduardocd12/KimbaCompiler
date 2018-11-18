@@ -50,7 +50,7 @@ class FunctionDirectory():
 
 
     """ Adds a paramter to a function """
-    def add_parameter(self, func_name, type_list, address_list):
+    def add_parameter_to_function(self, func_name, type_list, address_list):
         function = self.get_function(func_name)
         if function is not None:
             function['parameters']['types'] = type_list
@@ -66,6 +66,14 @@ class FunctionDirectory():
             function['quadruple_number'] = quadruple_number
         else:
             print("The function you are trying to set the quadruple doesn't exists")
+
+    def set_function_address(self, function_name, address_number):
+        """Sets the address return of the function"""
+        function = self.get_function(function_name)
+        if function is not None:
+            function['return_address'] = address_number
+        else:
+            print("The function you are trying to add the adress doesn't exists")
 
 
     def check_existing_variable(self, function_name, variable_name):

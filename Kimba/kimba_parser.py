@@ -102,8 +102,6 @@ def p_list_declaration_point(p):
 	'''list_declaration_point : '''
 	dimensioned_variable_name = p[-4]
 	dimension_size_address = my_code.operand_list.pop()
-	print("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-	print(dimension_size_address)
 	dimension_size = my_code.memory.get_value(dimension_size_address)
 	dimension_type = my_code.type_list.pop()
 	# Verifies the dimension of the variable
@@ -231,11 +229,11 @@ def p_var_const_point(p):
 			print("The variable " + p[-1] + " has not been declared")
 			sys.exit()
 		else:
-			# Adds the variale to the operand stack
+			# Adds the variale to the operand list
 			my_code.operand_list.append(variable['memory_address'])
 			my_code.type_list.append(variable['type'])
 	else:
-		# Adds the variale to the operand stack
+		# Adds the variale to the operand list
 		my_code.operand_list.append(variable['memory_address'])
 		my_code.type_list.append(variable['type'])
 
@@ -292,21 +290,40 @@ def p_boolean(p):
 
 def p_return(p):
 	'''return : RETURN expression_log SEMICOLON return_point'''
-	quadruple = Quadruple(my_code.quadruple_number, 'RETURN', None, None, None)
+
+def p_return_point(p):
+	'''return_point : ''' 
+	my_code.return_flag = True
+	# Gets the return operand and the function been called
+	operand = my_code.operand_list.pop()
+	operand_type = my_code.type_list.pop()
+	function = my_code.function_directory.get_function(my_code.current_scope)
+	function_type = function['return_type']
+	function_return_address = function['return_address']
+
+	# Checks if the types match
+	if function_type != operand_type:
+		print("Return type of function {0} doesn't match function return type".format(my_code.current_scope))
+		sys.exit()
+
+	# Creates the returns quadruples and sets the address they will return
+	quadruple = Quadruple(my_code.quadruple_number, 'RETURN', operand, None, function_return_address)
 	my_code.quadruple_list.append(quadruple)
 	my_code.quadruple_number += 1
 
-def p_return_point(p):
-	'''return_point : '''
+	# Creates the GOTO quadruple and stores them in a list for multiple returns
+	quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
+	my_code.return_list.append(my_code.quadruple_number)
+	my_code.quadruple_list.append(quadruple)
+	my_code.quadruple_number += 1
+
+
 
 ### FUNCTIONS
 
 def p_functions(p):
     '''functions : FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 functions
                  | empty'''
-    quadruple = Quadruple(my_code.quadruple_number, 'ENDFUNC', None, None, None)
-    my_code.quadruple_list.append(quadruple)
-    my_code.quadruple_number += 1
 
 def p_type_func(p):
     '''type_func : type
@@ -320,12 +337,75 @@ def p_params(p):
 def p_params_aux(p):
     '''params_aux : COMMA type ID params_aux
                   | empty'''
+    if p[-1] is not None:
+	    parameter_name = p[-1]
+	    parameter_type = p[-2]
+	    my_code.temporal_parameters_names.insert(0, parameter_name)
+	    my_code.temporal_parameters_types.insert(0, parameter_type)
 
 def p_functions_point(p):
 	'''functions_point : '''
+	### 1. Need to separate space in the global memory for the return value if its
+	### not a void function, the whole function acts like a variable in te global memory
+	### 2. Validate the te funcion hasn't been declared yet
+
+	# Determines the name of the function and its type
+	my_code.current_scope = p[-4]
+	function_type = p[-5]
+	parameter_addresses_list = []
+
+	# Adds the function to the directory
+	my_code.function_directory.add_function(my_code.current_scope, function_type)
+
+	# Sets the starting quadruple of the function
+	my_code.function_directory.set_function_quadruple_number(my_code.current_scope, my_code.quadruple_number)
+	if function_type != 'void':
+		# Sets the address return of the function
+		function_address = my_code.memory.get_global_address(function_type)
+		my_code.function_directory.set_function_address(my_code.current_scope, function_address)
+
+	# Adds the parameters to the function variable table
+	parameters = zip(my_code.temporal_parameters_names, my_code.temporal_parameters_types)
+
+	for parameter_name, parameter_type in parameters:
+		parameter_address = my_code.memory.get_local_address(parameter_type)
+		parameter_addresses_list.append(parameter_address)
+		my_code.function_directory.add_variable_to_function(my_code.current_scope, parameter_type, parameter_name, parameter_address)
+
+	# Adds the parameters signature to the function
+	my_code.function_directory.add_parameter_to_function(my_code.current_scope, list(my_code.temporal_parameters_types), list(parameter_addresses_list))
+
+	# Clears the temporal parameters
+	del my_code.temporal_parameters_names[:]
+	del my_code.temporal_parameters_types[:]
 
 def p_functions_point2(p):
 	'''functions_point2 : '''
+	function_type = p[-7]
+
+	# Checks if the functions and procedures have the correct return semantics
+	if function_type == 'void' and my_code.return_flag:
+		print('Function {0} of type {1} should not have return statement.'.format(my_code.current_scope, function_type))
+		sys.exit()
+	elif function_type != 'void' and not my_code.return_flag:
+		print('Function {0} of type {1} should have return statement.'.format(my_code.current_scope, function_type))
+		sys.exit()
+	else:
+		# Creates the end of function quadruple
+		quadruple = Quadruple(my_code.quadruple_number, 'ENDPROC', None, None, None)
+		my_code.quadruple_list.append(quadruple)
+
+	# Fills the returns quadruples if exist
+	if my_code.return_flag:
+		while my_code.return_list:
+			quadruple_number_to_fill = my_code.return_list.pop()
+			my_code.quadruple_list[quadruple_number_to_fill - 1].fill_quadruple_jump(my_code.quadruple_number)
+	my_code.quadruple_number += 1
+	my_code.return_flag = False
+
+	# Reset the temporal memory
+	my_code.current_scope = my_code.global_scope
+	my_code.memory.restart_memory()
 
 def p_type(p):
     '''type : INT
@@ -360,21 +440,67 @@ def p_statement(p):
 def p_assignment(p):
     '''assignment : ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4
 				  | ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4'''
-    quadruple = Quadruple(my_code.quadruple_number, 'ASSIGN', None, None, None)
-    my_code.quadruple_list.append(quadruple)
-    my_code.quadruple_number += 1
 
 def p_assignment_point(p):
 	'''assignment_point : '''
+	variable = my_code.function_directory.get_function_variable(my_code.current_scope, p[-1])
+	if variable is None:
+		# Checks if the variable exists in the global scope
+		# print("Scope : " + my_code.global_scope)
+		variable = my_code.function_directory.get_function_variable(my_code.global_scope, p[-1])
+		if variable is None:
+			print("The variable " + p[-1] + " has not been declared")
+			sys.exit()
+		else:
+			# Adds the variale to the operand list
+			my_code.operand_list.append(variable['memory_address'])
+			my_code.type_list.append(variable['type'])
+	else:
+		# Adds the variale to the operand list
+		my_code.operand_list.append(variable['memory_address'])
+		my_code.type_list.append(variable['type'])
 
 def p_assignment_point2(p):
 	'''assignment_point2 : '''
+	my_code.operator_list.append(p[-1])
 
 def p_assignment_point3(p):
 	'''assignment_point3 : '''
+	message_address = my_code.operand_list.pop()
+	my_code.type_list.pop()
+	# Gets the type of the variable where the input will be stored and request
+	# a temporal address to resolve its assignment
+	variable_type = my_code.type_list[-1]
+	input_address = my_code.memory.get_temporal_address(variable_type)
+
+	my_code.operand_list.append(input_address)
+	my_code.type_list.append(variable_type)
+	quadruple = Quadruple(my_code.quadruple_number, 'READ', variable_type, message_address, input_address)
+	my_code.quadruple_list.append(quadruple)
+	my_code.quadruple_number += 1
 
 def p_assignment_point4(p):
 	'''assignment_point4 : '''
+	# Gets the operator
+	operator = my_code.operator_list.pop()
+	if operator == '=':
+	# Gets the operands and its types
+		right_operand = my_code.operand_list.pop()
+		right_type = my_code.type_list.pop()
+		left_operand = my_code.operand_list.pop()
+		left_type = my_code.type_list.pop()
+		# Gets the type of the result
+		result_type = my_code.semantic_cube.get_semantic_type(left_type, right_type, operator)
+		if result_type != 'error':
+			# Creates the quadruple
+			quadruple = Quadruple(my_code.quadruple_number, operator, right_operand, None , left_operand)
+
+			# Adds the quadruple to its list and increments the counter
+			my_code.quadruple_list.append(quadruple)
+			my_code.quadruple_number += 1
+		else:
+			print('Operation type mismatch at {0}'.format(p.lexer.lineno))
+			sys.exit()
 
 
 
@@ -398,7 +524,7 @@ def p_list_point(p):
 			sys.exit()
 		else:
 			if 'upper_limit' in variable:
-				# Appends the dimensioned variable to a stack, makes nesting
+				# Appends the dimensioned variable to a list, makes nesting
 				# vectors calls possible
 				my_code.list_variable_list.append(variable)
 			else:
@@ -406,7 +532,7 @@ def p_list_point(p):
 				sys.exit()
 	else:
 		if 'upper_limit' in variable:
-			# Appends the dimensioned variable to a stack, makes nesting
+			# Appends the dimensioned variable to a list, makes nesting
 			# vectors calls possible
 			my_code.list_variable_list.append(variable)
 		else:
@@ -462,42 +588,74 @@ def p_condition_point(p):
 
 def p_condition_point2(p):
     '''condition_point2 : '''
+    # Gets the number of the GotoF quadruple to be filled
+    quadruple_number_to_fill = my_code.jump_list.pop()
+    quadruple = my_code.quadruple_list[quadruple_number_to_fill]
+
+    # Fills the pending GoToF quadruple with the number of the next quadruple
+    quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 def p_else(p):
 	'''else : ELSE else_point block
 	        | empty'''
-	quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
 
 def p_else_point(p):
     '''else_point : '''
+    quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
+    my_code.quadruple_list.append(quadruple)
+
+    # Gets the number of the GotoF quadruple to be filled
+    quadruple_number_to_fill = my_code.jump_list.pop()
+    quadruple = my_code.quadruple_list[quadruple_number_to_fill]
+
+    # Stores the actual quadruple_number GoTo in the jump list
+    my_code.jump_list.append(my_code.quadruple_number - 1)
+    my_code.quadruple_number += 1
+
+    # Fills the pending GoToF quadruple with the number of the next quadruple
+    # after GoTo was created
+    quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 ### WRITE
 
 def p_write(p):
     '''write : PRINT LPAREN expression_log write_point RPAREN SEMICOLON'''
-    quadruple = Quadruple(my_code.quadruple_number, 'PRINT', None, None, None)
-    my_code.quadruple_list.append(quadruple)
-    my_code.quadruple_number += 1
 
 def p_write_point(p):
     '''write_point : '''
+    operand = my_code.operand_list.pop()
+    quadruple = Quadruple(my_code.quadruple_number, 'PRINT', operand, None, None)
+    my_code.quadruple_list.append(quadruple)
+    my_code.quadruple_number += 1
 
 ### LOOP
 
 def p_loop(p):
     '''loop : WHILE loop_point LPAREN expression_log RPAREN loop_point2 block loop_point3'''
-    quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
-    my_code.quadruple_list.append(quadruple)
-    my_code.quadruple_number += 1
 
 def p_loop_point(p):
     '''loop_point : '''
+    my_code.jump_list.append(my_code.quadruple_number)
 
 def p_loop_point2(p):
     '''loop_point2 : '''
+    create_conditional_quadruple(p)
 
 def p_loop_point3(p):
     '''loop_point3 : '''
+    # Gets the number of the GotoF quadruple and where the while starts
+    quadruple_number_to_fill = my_code.jump_list.pop()
+    quadruple_number_to_return = my_code.jump_list.pop()
+
+    while_quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None,
+        quadruple_number_to_return)
+
+    my_code.quadruple_list.append(while_quadruple)
+    my_code.quadruple_number += 1
+
+    conditional_quadruple = my_code.quadruple_list[quadruple_number_to_fill]
+    # Fills the pending GoToF quadruple with the number of the next quadruple
+    conditional_quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 ### METHOD
 
@@ -509,18 +667,54 @@ def p_method(p):
 
 def p_method_point(p):
     '''method_point : '''
+    my_code.operator_list.append('()')
 
 def p_method_point2(p):
     '''method_point2 : '''
+    function = p[-3]
+    # Checks if the function exists
+    if my_code.function_directory.has_function(function):
+        # Creates its quadruple action
+        quadruple = Quadruple(my_code.quadruple_number, 'ERA', function, None, None)
+        my_code.quadruple_list.append(quadruple)
+        my_code.quadruple_number += 1
+
+        # Retrieves the parameters of the function
+        parameters = my_code.function_directory.get_function_parameters(function)
+        my_code.temporal_arguments_types = list(parameters['types'])
+    else:
+        print("The function " + function + " you are trying to call doesn't exists")
+        sys.exit()
 
 def p_method_point3(p):
     '''method_point3 : '''
+    my_code.operator_list.pop()
 
 def p_method_point4(p):
     '''method_point4 : '''
+    # If there are more parameters than arguments
+    if not my_code.temporal_arguments_types:
+        # Retrieves the function and is quadruple number
+        function = p[-7]
+        function_quadruple_number = my_code.function_directory.get_function_quadruple_number(function)
+
+        # Creates its call quadruple
+        quadruple = Quadruple(my_code.quadruple_number, 'GOSUB', function,
+            None, function_quadruple_number)
+        my_code.quadruple_list.append(quadruple)
+        my_code.quadruple_number += 1
+    else:
+        print('Argument number mismatch at {0} line '.format(p.lexer.lineno))
+        sys.exit()
 
 def p_method_point5(p):
     '''method_point5 : '''
+    function = p[-8]
+    function_type = my_code.function_directory.get_function_type(function)
+
+    if function_type != 'void':
+        print("This function {0} can't be called as a procedure".format(function))
+        sys.exit()
 
 ### FUNCTION
 
@@ -609,7 +803,7 @@ def create_conditional_quadruple(p):
 
 
 def solve_operation(p):
-    """Solve an operation from the stacks"""
+    """Solve an operation from the lists"""
     # Gets the operands and its types
     right_operand = my_code.operand_list.pop()
     right_type = my_code.type_list.pop()
@@ -630,7 +824,7 @@ def solve_operation(p):
         # Creates the quadruple
         quadruple = Quadruple(my_code.quadruple_number, operator, left_operand,
             right_operand , temporal_variable_address)
-        # Adds the quadruple to its list and the results to the stacks
+        # Adds the quadruple to its list and the results to the lists
         my_code.quadruple_list.append(quadruple)
         my_code.quadruple_number += 1
         my_code.operand_list.append(temporal_variable_address)

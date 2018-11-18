@@ -3,7 +3,6 @@ program test;
 var a : int;
 var b : float;
 var c : string;
-var d [5] : int;
 var e : boolean;
 
 
@@ -20,6 +19,8 @@ func void printTest()
 
 main
 {
+	var d[5] : int;
+	a = 3;
 	d[1] = 3;
 	if ((5 > 2) and (3 == 3))
 	{

@@ -85,8 +85,8 @@ class Memory():
         print("Error. Invalid memory type")
 
     def restart_memory(self):
-      self.local_memory.restart_memory()
-      self.temporal_memory.restart_memory()
+      self.local_memory.reset_memory_segments()
+      self.temporal_memory.reset_memory_segments()
 
     def check_existing_constant_value(self, value_type, value):
         """Checks if the value exists in the constant memory"""

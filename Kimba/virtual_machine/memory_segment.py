@@ -1,4 +1,4 @@
-from type_segment import TypeSegment
+from virtual_machine.type_segment import TypeSegment
 
 class MemorySegment():
     def __init__(self, memory_name, initial_address, num_of_addresses):

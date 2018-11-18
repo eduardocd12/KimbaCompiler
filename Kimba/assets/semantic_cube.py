@@ -8,12 +8,12 @@ class SemanticCube():
                     "-" : "int",
                     "*" : "int",
                     "/" : "int",
-                    "<" : "bool",
-                    "<=" : "bool",
-                    ">" : "bool",
-                    ">=" : "bool",
-                    "==" : "bool",
-                    "!=" : "bool",
+                    "<" : "boolean",
+                    "<=" : "boolean",
+                    ">" : "boolean",
+                    ">=" : "boolean",
+                    "==" : "boolean",
+                    "!=" : "boolean",
                     "=" : "int",
                     "and" : "error",
                     "or" : "error"
@@ -23,17 +23,17 @@ class SemanticCube():
                     "-" : "float",
                     "*" : "float",
                     "/" : "float",
-                    "<" : "bool",
-                    "<=" : "bool",
-                    ">" : "bool",
-                    ">=" : "bool",
-                    "==" : "bool",
-                    "!=" : "bool",
+                    "<" : "boolean",
+                    "<=" : "boolean",
+                    ">" : "boolean",
+                    ">=" : "boolean",
+                    "==" : "boolean",
+                    "!=" : "boolean",
                     "=" : "float",
                     "and" : "error",
                     "or" : "error"
                 },
-                "bool" : {
+                "boolean" : {
                     "+" : "error",
                     "-" : "error",
                     "*" : "error",
@@ -70,12 +70,12 @@ class SemanticCube():
                     "-" : "float",
                     "*" : "float",
                     "/" : "float",
-                    "<" : "bool",
-                    "<=" : "bool",
-                    ">" : "bool",
-                    ">=" : "bool",
-                    "==" : "bool",
-                    "!=" : "bool",
+                    "<" : "boolean",
+                    "<=" : "boolean",
+                    ">" : "boolean",
+                    ">=" : "boolean",
+                    "==" : "boolean",
+                    "!=" : "boolean",
                     "=" : "float",
                     "and" : "error",
                     "or" : "error"
@@ -85,17 +85,17 @@ class SemanticCube():
                     "-" : "float",
                     "*" : "float",
                     "/" : "float",
-                    "<" : "bool",
-                    "<=" : "bool",
-                    ">" : "bool",
-                    ">=" : "bool",
-                    "==" : "bool",
-                    "!=" : "bool",
+                    "<" : "boolean",
+                    "<=" : "boolean",
+                    ">" : "boolean",
+                    ">=" : "boolean",
+                    "==" : "boolean",
+                    "!=" : "boolean",
                     "=" : "float",
                     "and" : "error",
                     "or" : "error"
                 },
-                "bool" : {
+                "boolean" : {
                     "+" : "error",
                     "-" : "error",
                     "*" : "error",
@@ -126,7 +126,7 @@ class SemanticCube():
                     "or" : "error"
                 }
             },
-            "bool" : {
+            "boolean" : {
                 "int" : {
                     "+" : "error",
                     "-" : "error",
@@ -157,7 +157,7 @@ class SemanticCube():
                     "and" : "error",
                     "or" : "error"
                 },
-                "bool" : {
+                "boolean" : {
                     "+" : "error",
                     "-" : "error",
                     "*" : "error",
@@ -166,11 +166,11 @@ class SemanticCube():
                     "<=" : "error",
                     ">" : "error",
                     ">=" : "error",
-                    "==" : "bool",
-                    "!=" : "bool",
-                    "=" : "bool",
-                    "and" : "bool",
-                    "or" : "bool"
+                    "==" : "boolean",
+                    "!=" : "boolean",
+                    "=" : "boolean",
+                    "and" : "boolean",
+                    "or" : "boolean"
                 },
                 "string": {
                     "+" : "error",
@@ -219,7 +219,7 @@ class SemanticCube():
                     "and" : "error",
                     "or" : "error"
                 },
-                "bool": {
+                "boolean": {
                     "+" : "error",
                     "-" : "error",
                     "*" : "error",
@@ -243,8 +243,8 @@ class SemanticCube():
                     "<=" : "error",
                     ">" : "error",
                     ">=" : "error",
-                    "==" : "bool",
-                    "!=" : "bool",
+                    "==" : "boolean",
+                    "!=" : "boolean",
                     "=" : "string",
                     "and" : "error",
                     "or" : "error"

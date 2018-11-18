@@ -22,6 +22,7 @@ class Code():
 		self.type_list = []
 		self.list_variable_list = []
 		self.list_variable_flag = False
+		self.operations = ['>', '<', '>=', '<=', '==', '!=']
 
 	def print_quadruples(self):
 		for quadruple in self.quadruple_list:

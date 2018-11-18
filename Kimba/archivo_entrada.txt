@@ -6,6 +6,8 @@ var c : string;
 var d [5] : int;
 var e : boolean;
 
+
+
 func int test(int a, float b)
 {
 	return 5;
@@ -16,13 +18,14 @@ func void printTest()
 	print("Test");
 }
 
-main 
+main
 {
+	d[1] = 3;
 	if ((5 > 2) and (3 == 3))
 	{
 		a = 5;
 	}
-	else 
+	else
 	{
 		b = 3 + (5 * 2);
 	}

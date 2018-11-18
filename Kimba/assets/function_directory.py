@@ -26,13 +26,13 @@ class FunctionDirectory():
                 'int' : 0,
                 'float' : 0,
                 'string' : 0,
-                'bool' : 0
+                'boolean' : 0
             },
             'temporal_variables_counter' : {
                 'int' : 0,
                 'float' : 0,
                 'string' : 0,
-                'bool' : 0
+                'boolean' : 0
             }
         }
 
@@ -121,6 +121,15 @@ class FunctionDirectory():
         else:
             print("The function you are trying to find when looking for the" +
                 "variable doesn't exists")
+
+    def add_temporal_to_function(self, function_name, temporal_type):
+        """Increments the number of temporals the function has"""
+        function = self.get_function(function_name)
+        if function is not None:
+            function['temporal_variables_counter'][temporal_type] += 1
+        else:
+            print("The function you are trying to add the temporal doesnt exists")
+
 
     def print_directory(self):
         for p in self.func_list:

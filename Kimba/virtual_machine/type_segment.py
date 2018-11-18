@@ -35,8 +35,8 @@ class TypeSegment():
             return address
         else:
             print("Error. Insufficient space on the segment")
-            
-    
+
+
     def get_value(self, address):
         if self.address_in_segment(address):
             return self.segment[address]
@@ -56,6 +56,7 @@ class TypeSegment():
                 return segment_address
         return None
 
+
     def set_value(self, value, address=None):
         if address is None:
             address = self.current_address
@@ -70,7 +71,7 @@ class TypeSegment():
 
     def print_segment(self):
         print(self.segment.items())
-        
+
 
 if __name__ == '__main__':
         segmento = TypeSegment('prueba', 8000, 8999)

@@ -87,12 +87,12 @@ Rule 81    statement -> predefined_method
 Rule 82    statement -> return
 Rule 83    assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4
 Rule 84    assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
-Rule 85    list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
-Rule 86    list_call -> empty
-Rule 87    assignment_point -> <empty>
-Rule 88    assignment_point2 -> <empty>
-Rule 89    assignment_point3 -> <empty>
-Rule 90    assignment_point4 -> <empty>
+Rule 85    assignment_point -> <empty>
+Rule 86    assignment_point2 -> <empty>
+Rule 87    assignment_point3 -> <empty>
+Rule 88    assignment_point4 -> <empty>
+Rule 89    list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
+Rule 90    list_call -> empty
 Rule 91    list_point -> <empty>
 Rule 92    list_point2 -> <empty>
 Rule 93    list_point3 -> <empty>
@@ -172,7 +172,7 @@ ID                   : 1 5 6 8 44 59 63 65 83 84 107 113 124
 IF                   : 95
 INT                  : 69
 LBRACE               : 73
-LBRACKET             : 10 85
+LBRACKET             : 10 89
 LESS_OR_EQUAL_THAN   : 25
 LESS_THAN            : 23
 LPAREN               : 40 59 84 95 101 103 107 113 127 128 129 130 131 132 133 134 135 136 137 138
@@ -186,7 +186,7 @@ PLUS                 : 31
 PRINT                : 101
 PROGRAM              : 1
 RBRACE               : 73
-RBRACKET             : 10 85
+RBRACKET             : 10 89
 READ                 : 84
 RESET                : 128
 RETURN               : 57
@@ -219,8 +219,8 @@ condition_point      : 95
 condition_point2     : 95
 else                 : 95
 else_point           : 98
-empty                : 7 9 20 60 64 66 75 86 99 120 122
-exp                  : 21 22 22 23 23 24 24 25 25 26 26 27 27 31 32 85 130 131 132 135 135 136 137
+empty                : 7 9 20 60 64 66 75 90 99 120 122
+exp                  : 21 22 22 23 23 24 24 25 25 26 26 27 27 31 32 89 130 131 132 135 135 136 137
 exp_point            : 30 31 32
 exp_point2           : 31 32
 expression           : 14 15 16
@@ -244,10 +244,10 @@ functions_point2     : 59
 list_call            : 44 83 84
 list_declaration     : 6
 list_declaration_point : 10
-list_point           : 85
-list_point2          : 85
-list_point3          : 85
-list_point4          : 85
+list_point           : 89
+list_point2          : 89
+list_point3          : 89
+list_point4          : 89
 loop                 : 79
 loop_point           : 103
 loop_point2          : 103
@@ -918,8 +918,8 @@ state 47
 state 48
 
     (44) var_const -> ID var_const_point . list_call
-    (85) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
-    (86) list_call -> . empty
+    (89) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
+    (90) list_call -> . empty
     (126) empty -> .
 
     LBRACKET        shift and go to state 63
@@ -1182,7 +1182,7 @@ state 62
 
 state 63
 
-    (85) list_call -> LBRACKET . list_point list_point2 exp list_point3 list_point4 RBRACKET
+    (89) list_call -> LBRACKET . list_point list_point2 exp list_point3 list_point4 RBRACKET
     (91) list_point -> .
 
     LPAREN          reduce using rule 91 (list_point -> .)
@@ -1197,25 +1197,25 @@ state 63
 
 state 64
 
-    (86) list_call -> empty .
+    (90) list_call -> empty .
 
-    RBRACKET        reduce using rule 86 (list_call -> empty .)
-    TIMES           reduce using rule 86 (list_call -> empty .)
-    DIVIDES         reduce using rule 86 (list_call -> empty .)
-    PLUS            reduce using rule 86 (list_call -> empty .)
-    MINUS           reduce using rule 86 (list_call -> empty .)
-    RPAREN          reduce using rule 86 (list_call -> empty .)
-    COMMA           reduce using rule 86 (list_call -> empty .)
-    GREATER_THAN    reduce using rule 86 (list_call -> empty .)
-    LESS_THAN       reduce using rule 86 (list_call -> empty .)
-    GREATER_OR_EQUAL_THAN reduce using rule 86 (list_call -> empty .)
-    LESS_OR_EQUAL_THAN reduce using rule 86 (list_call -> empty .)
-    EQUAL_THAN      reduce using rule 86 (list_call -> empty .)
-    NOT_EQUAL_THAN  reduce using rule 86 (list_call -> empty .)
-    AND             reduce using rule 86 (list_call -> empty .)
-    OR              reduce using rule 86 (list_call -> empty .)
-    SEMICOLON       reduce using rule 86 (list_call -> empty .)
-    ASSIGN          reduce using rule 86 (list_call -> empty .)
+    RBRACKET        reduce using rule 90 (list_call -> empty .)
+    TIMES           reduce using rule 90 (list_call -> empty .)
+    DIVIDES         reduce using rule 90 (list_call -> empty .)
+    PLUS            reduce using rule 90 (list_call -> empty .)
+    MINUS           reduce using rule 90 (list_call -> empty .)
+    RPAREN          reduce using rule 90 (list_call -> empty .)
+    COMMA           reduce using rule 90 (list_call -> empty .)
+    GREATER_THAN    reduce using rule 90 (list_call -> empty .)
+    LESS_THAN       reduce using rule 90 (list_call -> empty .)
+    GREATER_OR_EQUAL_THAN reduce using rule 90 (list_call -> empty .)
+    LESS_OR_EQUAL_THAN reduce using rule 90 (list_call -> empty .)
+    EQUAL_THAN      reduce using rule 90 (list_call -> empty .)
+    NOT_EQUAL_THAN  reduce using rule 90 (list_call -> empty .)
+    AND             reduce using rule 90 (list_call -> empty .)
+    OR              reduce using rule 90 (list_call -> empty .)
+    SEMICOLON       reduce using rule 90 (list_call -> empty .)
+    ASSIGN          reduce using rule 90 (list_call -> empty .)
 
 
 state 65
@@ -1485,11 +1485,11 @@ state 76
     (83) assignment -> ID . assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4
     (84) assignment -> ID . assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
     (107) method -> ID . LPAREN method_point method_point2 args RPAREN method_point3 method_point4 method_point5 SEMICOLON
-    (87) assignment_point -> .
+    (85) assignment_point -> .
 
     LPAREN          shift and go to state 101
-    LBRACKET        reduce using rule 87 (assignment_point -> .)
-    ASSIGN          reduce using rule 87 (assignment_point -> .)
+    LBRACKET        reduce using rule 85 (assignment_point -> .)
+    ASSIGN          reduce using rule 85 (assignment_point -> .)
 
     assignment_point               shift and go to state 100
 
@@ -1713,7 +1713,7 @@ state 96
 
 state 97
 
-    (85) list_call -> LBRACKET list_point . list_point2 exp list_point3 list_point4 RBRACKET
+    (89) list_call -> LBRACKET list_point . list_point2 exp list_point3 list_point4 RBRACKET
     (92) list_point2 -> .
 
     LPAREN          reduce using rule 92 (list_point2 -> .)
@@ -1764,8 +1764,8 @@ state 100
 
     (83) assignment -> ID assignment_point . list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4
     (84) assignment -> ID assignment_point . list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
-    (85) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
-    (86) list_call -> . empty
+    (89) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
+    (90) list_call -> . empty
     (126) empty -> .
 
     LBRACKET        shift and go to state 63
@@ -2277,7 +2277,7 @@ state 126
 
 state 127
 
-    (85) list_call -> LBRACKET list_point list_point2 . exp list_point3 list_point4 RBRACKET
+    (89) list_call -> LBRACKET list_point list_point2 . exp list_point3 list_point4 RBRACKET
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -2679,7 +2679,7 @@ state 158
 
 state 159
 
-    (85) list_call -> LBRACKET list_point list_point2 exp . list_point3 list_point4 RBRACKET
+    (89) list_call -> LBRACKET list_point list_point2 exp . list_point3 list_point4 RBRACKET
     (93) list_point3 -> .
 
     RBRACKET        reduce using rule 93 (list_point3 -> .)
@@ -2727,17 +2727,17 @@ state 162
 
     (83) assignment -> ID assignment_point list_call ASSIGN . assignment_point2 expression_log SEMICOLON assignment_point4
     (84) assignment -> ID assignment_point list_call ASSIGN . assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
-    (88) assignment_point2 -> .
+    (86) assignment_point2 -> .
 
-    READ            reduce using rule 88 (assignment_point2 -> .)
-    NOT             reduce using rule 88 (assignment_point2 -> .)
-    LPAREN          reduce using rule 88 (assignment_point2 -> .)
-    ID              reduce using rule 88 (assignment_point2 -> .)
-    CONST_INT       reduce using rule 88 (assignment_point2 -> .)
-    CONST_FLOAT     reduce using rule 88 (assignment_point2 -> .)
-    CONST_STRING    reduce using rule 88 (assignment_point2 -> .)
-    TRUE            reduce using rule 88 (assignment_point2 -> .)
-    FALSE           reduce using rule 88 (assignment_point2 -> .)
+    READ            reduce using rule 86 (assignment_point2 -> .)
+    NOT             reduce using rule 86 (assignment_point2 -> .)
+    LPAREN          reduce using rule 86 (assignment_point2 -> .)
+    ID              reduce using rule 86 (assignment_point2 -> .)
+    CONST_INT       reduce using rule 86 (assignment_point2 -> .)
+    CONST_FLOAT     reduce using rule 86 (assignment_point2 -> .)
+    CONST_STRING    reduce using rule 86 (assignment_point2 -> .)
+    TRUE            reduce using rule 86 (assignment_point2 -> .)
+    FALSE           reduce using rule 86 (assignment_point2 -> .)
 
     assignment_point2              shift and go to state 198
 
@@ -3230,7 +3230,7 @@ state 192
 
 state 193
 
-    (85) list_call -> LBRACKET list_point list_point2 exp list_point3 . list_point4 RBRACKET
+    (89) list_call -> LBRACKET list_point list_point2 exp list_point3 . list_point4 RBRACKET
     (94) list_point4 -> .
 
     RBRACKET        reduce using rule 94 (list_point4 -> .)
@@ -3843,7 +3843,7 @@ state 224
 
 state 225
 
-    (85) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 . RBRACKET
+    (89) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 . RBRACKET
 
     RBRACKET        shift and go to state 248
 
@@ -4263,25 +4263,25 @@ state 247
 
 state 248
 
-    (85) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .
+    (89) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .
 
-    RBRACKET        reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    TIMES           reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    DIVIDES         reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    PLUS            reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    MINUS           reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    RPAREN          reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    COMMA           reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    GREATER_THAN    reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    LESS_THAN       reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    GREATER_OR_EQUAL_THAN reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    LESS_OR_EQUAL_THAN reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    EQUAL_THAN      reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    NOT_EQUAL_THAN  reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    AND             reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    OR              reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    SEMICOLON       reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
-    ASSIGN          reduce using rule 85 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    RBRACKET        reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    TIMES           reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    DIVIDES         reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    PLUS            reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    MINUS           reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    RPAREN          reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    COMMA           reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    GREATER_THAN    reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    LESS_THAN       reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    GREATER_OR_EQUAL_THAN reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    LESS_OR_EQUAL_THAN reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    EQUAL_THAN      reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    NOT_EQUAL_THAN  reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    AND             reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    OR              reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    SEMICOLON       reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
+    ASSIGN          reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
 
 
 state 249
@@ -4322,27 +4322,27 @@ state 250
 state 251
 
     (83) assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON . assignment_point4
-    (90) assignment_point4 -> .
+    (88) assignment_point4 -> .
 
-    VAR             reduce using rule 90 (assignment_point4 -> .)
-    ID              reduce using rule 90 (assignment_point4 -> .)
-    IF              reduce using rule 90 (assignment_point4 -> .)
-    PRINT           reduce using rule 90 (assignment_point4 -> .)
-    WHILE           reduce using rule 90 (assignment_point4 -> .)
-    START           reduce using rule 90 (assignment_point4 -> .)
-    RESET           reduce using rule 90 (assignment_point4 -> .)
-    END             reduce using rule 90 (assignment_point4 -> .)
-    GIRA_IZQ        reduce using rule 90 (assignment_point4 -> .)
-    GIRA_DER        reduce using rule 90 (assignment_point4 -> .)
-    CAMINA          reduce using rule 90 (assignment_point4 -> .)
-    SI_DIBUJA       reduce using rule 90 (assignment_point4 -> .)
-    NO_DIBUJA       reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_POLIGONO reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_CIRCULO  reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_ESTRELLA reduce using rule 90 (assignment_point4 -> .)
-    COLOR_PLUMA     reduce using rule 90 (assignment_point4 -> .)
-    RETURN          reduce using rule 90 (assignment_point4 -> .)
-    RBRACE          reduce using rule 90 (assignment_point4 -> .)
+    VAR             reduce using rule 88 (assignment_point4 -> .)
+    ID              reduce using rule 88 (assignment_point4 -> .)
+    IF              reduce using rule 88 (assignment_point4 -> .)
+    PRINT           reduce using rule 88 (assignment_point4 -> .)
+    WHILE           reduce using rule 88 (assignment_point4 -> .)
+    START           reduce using rule 88 (assignment_point4 -> .)
+    RESET           reduce using rule 88 (assignment_point4 -> .)
+    END             reduce using rule 88 (assignment_point4 -> .)
+    GIRA_IZQ        reduce using rule 88 (assignment_point4 -> .)
+    GIRA_DER        reduce using rule 88 (assignment_point4 -> .)
+    CAMINA          reduce using rule 88 (assignment_point4 -> .)
+    SI_DIBUJA       reduce using rule 88 (assignment_point4 -> .)
+    NO_DIBUJA       reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_POLIGONO reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_CIRCULO  reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_ESTRELLA reduce using rule 88 (assignment_point4 -> .)
+    COLOR_PLUMA     reduce using rule 88 (assignment_point4 -> .)
+    RETURN          reduce using rule 88 (assignment_point4 -> .)
+    RBRACE          reduce using rule 88 (assignment_point4 -> .)
 
     assignment_point4              shift and go to state 273
 
@@ -4783,9 +4783,9 @@ state 278
 state 279
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN . assignment_point3 SEMICOLON assignment_point4
-    (89) assignment_point3 -> .
+    (87) assignment_point3 -> .
 
-    SEMICOLON       reduce using rule 89 (assignment_point3 -> .)
+    SEMICOLON       reduce using rule 87 (assignment_point3 -> .)
 
     assignment_point3              shift and go to state 282
 
@@ -4856,27 +4856,27 @@ state 283
 state 284
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON . assignment_point4
-    (90) assignment_point4 -> .
+    (88) assignment_point4 -> .
 
-    VAR             reduce using rule 90 (assignment_point4 -> .)
-    ID              reduce using rule 90 (assignment_point4 -> .)
-    IF              reduce using rule 90 (assignment_point4 -> .)
-    PRINT           reduce using rule 90 (assignment_point4 -> .)
-    WHILE           reduce using rule 90 (assignment_point4 -> .)
-    START           reduce using rule 90 (assignment_point4 -> .)
-    RESET           reduce using rule 90 (assignment_point4 -> .)
-    END             reduce using rule 90 (assignment_point4 -> .)
-    GIRA_IZQ        reduce using rule 90 (assignment_point4 -> .)
-    GIRA_DER        reduce using rule 90 (assignment_point4 -> .)
-    CAMINA          reduce using rule 90 (assignment_point4 -> .)
-    SI_DIBUJA       reduce using rule 90 (assignment_point4 -> .)
-    NO_DIBUJA       reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_POLIGONO reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_CIRCULO  reduce using rule 90 (assignment_point4 -> .)
-    DIBUJA_ESTRELLA reduce using rule 90 (assignment_point4 -> .)
-    COLOR_PLUMA     reduce using rule 90 (assignment_point4 -> .)
-    RETURN          reduce using rule 90 (assignment_point4 -> .)
-    RBRACE          reduce using rule 90 (assignment_point4 -> .)
+    VAR             reduce using rule 88 (assignment_point4 -> .)
+    ID              reduce using rule 88 (assignment_point4 -> .)
+    IF              reduce using rule 88 (assignment_point4 -> .)
+    PRINT           reduce using rule 88 (assignment_point4 -> .)
+    WHILE           reduce using rule 88 (assignment_point4 -> .)
+    START           reduce using rule 88 (assignment_point4 -> .)
+    RESET           reduce using rule 88 (assignment_point4 -> .)
+    END             reduce using rule 88 (assignment_point4 -> .)
+    GIRA_IZQ        reduce using rule 88 (assignment_point4 -> .)
+    GIRA_DER        reduce using rule 88 (assignment_point4 -> .)
+    CAMINA          reduce using rule 88 (assignment_point4 -> .)
+    SI_DIBUJA       reduce using rule 88 (assignment_point4 -> .)
+    NO_DIBUJA       reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_POLIGONO reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_CIRCULO  reduce using rule 88 (assignment_point4 -> .)
+    DIBUJA_ESTRELLA reduce using rule 88 (assignment_point4 -> .)
+    COLOR_PLUMA     reduce using rule 88 (assignment_point4 -> .)
+    RETURN          reduce using rule 88 (assignment_point4 -> .)
+    RBRACE          reduce using rule 88 (assignment_point4 -> .)
 
     assignment_point4              shift and go to state 285
 

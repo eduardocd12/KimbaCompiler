@@ -10,7 +10,7 @@ class VarTable():
             self.var_list[var_name] = {
                 'name' : var_name,
                 'type' : var_type,
-                'address' : var_address
+                'memory_address' : var_address
             }
 
     def add_list_var(self, variable):

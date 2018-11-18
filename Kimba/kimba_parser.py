@@ -102,6 +102,8 @@ def p_list_declaration_point(p):
 	'''list_declaration_point : '''
 	dimensioned_variable_name = p[-4]
 	dimension_size_address = my_code.operand_list.pop()
+	print("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+	print(dimension_size_address)
 	dimension_size = my_code.memory.get_value(dimension_size_address)
 	dimension_type = my_code.type_list.pop()
 	# Verifies the dimension of the variable
@@ -134,9 +136,13 @@ def p_expression_log(p):
 
 def p_expression_log_point(p):
 	'''expression_log_point : '''
+	if len(my_code.operator_list) > 0 and len(my_code.operand_list) > 1:
+		if my_code.operator_list[-1] == 'and' or my_code.operator_list[-1] == 'or':
+			solve_operation(p)
 
 def p_expression_log_point2(p):
 	'''expression_log_point2 : '''
+	my_code.operator_list.append(p[-1])
 
 def p_not(p):
     '''not : NOT
@@ -153,9 +159,13 @@ def p_expression(p):
 
 def p_expression_point(p):
 	'''expression_point : '''
+	my_code.operator_list.append(p[-1])
 
 def p_expression_point2(p):
 	'''expression_point2 : '''
+	if len(my_code.operator_list) > 0 and len(my_code.operand_list) > 1:
+		if my_code.operator_list[-1] in my_code.operations:
+			solve_operation(p)
 
 def p_exp(p):
     '''exp : term exp_point
@@ -164,9 +174,13 @@ def p_exp(p):
 
 def p_exp_point(p):
 	'''exp_point : '''
+	if len(my_code.operator_list) > 0 and len(my_code.operand_list) > 1:
+		if my_code.operator_list[-1] == '+' or my_code.operator_list[-1] == '-':
+			solve_operation(p)
 
 def p_exp_point2(p):
 	'''exp_point2 : '''
+	my_code.operator_list.append(p[-1])
 
 def p_term(p):
     '''term : factor term_point
@@ -175,9 +189,13 @@ def p_term(p):
 
 def p_term_point(p):
 	'''term_point : '''
+	if len(my_code.operator_list) > 0 and len(my_code.operand_list) > 1:
+		if my_code.operator_list[-1] == '*' or my_code.operator_list[-1] == '/':
+			solve_operation(p)
 
 def p_term_point2(p):
 	'''term_point2 : '''
+	my_code.operator_list.append(p[-1])
 
 def p_factor(p):
     '''factor : LPAREN factor_point expression_log RPAREN factor_point2
@@ -185,9 +203,12 @@ def p_factor(p):
 
 def p_factor_point(p):
 	'''factor_point : '''
+	my_code.operator_list.append('()')
 
 def p_factor_point2(p):
 	'''factor_point2 : '''
+	my_code.operator_list.pop()
+
 
 def p_var_const(p):
     '''var_const : ID var_const_point list_call
@@ -199,18 +220,68 @@ def p_var_const(p):
 
 def p_var_const_point(p):
 	'''var_const_point : '''
+    # Checks if the variable exists in the local scope
+    # print("Scope : " + my_code.current_scope)
+	variable = my_code.function_directory.get_function_variable(my_code.current_scope, p[-1])
+	if variable is None:
+		# Checks if the variable exists in the global scope
+		# print("Scope : " + my_code.global_scope)
+		variable = my_code.function_directory.get_function_variable(my_code.global_scope, p[-1])
+		if variable is None:
+			print("The variable " + p[-1] + " has not been declared")
+			sys.exit()
+		else:
+			# Adds the variale to the operand stack
+			my_code.operand_list.append(variable['memory_address'])
+			my_code.type_list.append(variable['type'])
+	else:
+		# Adds the variale to the operand stack
+		my_code.operand_list.append(variable['memory_address'])
+		my_code.type_list.append(variable['type'])
 
 def p_var_const_point2(p):
 	'''var_const_point2 : '''
+    # Gets the constant address, creates one if doesn't exists
+	constant_address = my_code.memory.check_existing_constant_value('int', int(p[-1]))
+	if constant_address is None:
+		constant_address = my_code.memory.get_constant_address('int', int(p[-1]))
+	my_code.operand_list.append(constant_address)
+	my_code.type_list.append('int')
 
 def p_var_const_point3(p):
 	'''var_const_point3 : '''
+    # Gets the constant address, creates one if doesn't exists
+	constant_address = my_code.memory.check_existing_constant_value('float', float(p[-1]))
+	if constant_address is None:
+		constant_address = my_code.memory.get_constant_address('float', float(p[-1]))
+	my_code.operand_list.append(constant_address)
+	my_code.type_list.append('float')
 
 def p_var_const_point4(p):
 	'''var_const_point4 : '''
+    # Gets the constant address, creates one if doesn't exists
+	constant_address = my_code.memory.check_existing_constant_value('string', str(p[-1]))
+	if constant_address is None:
+		constant_address = my_code.memory.get_constant_address('string', str(p[-1]))
+	my_code.operand_list.append(constant_address)
+	my_code.type_list.append('string')
 
 def p_var_const_point5(p):
 	'''var_const_point5 : '''
+	if p[-1] == "True":
+		# Gets the constant address, creates one if doesn't exists
+		constant_address = my_code.memory.check_existing_constant_value('boolean', True)
+		if constant_address is None:
+			constant_address = my_code.memory.get_constant_address('boolean', True)
+		my_code.operand_list.append(constant_address)
+		my_code.type_list.append('boolean')
+	else:
+		# Gets the constant address, creates one if doesn't exists
+		constant_address = my_code.memory.check_existing_constant_value('boolean', False)
+		if constant_address is None:
+			constant_address = my_code.memory.get_constant_address('boolean', False)
+		my_code.operand_list.append(constant_address)
+		my_code.type_list.append('boolean')
 
 def p_boolean(p):
     '''boolean : TRUE
@@ -315,36 +386,32 @@ def p_list_call(p):
 
 def p_list_point(p):
 	'''list_point : '''
-    variable_name = p[-3]
-    my_code.operand_list.pop()
-
-    # Checks if the variable exists in the local scope
-    variable = my_code.function_directory.get_function_variable(
-        my_code.current_scope, variable_name)
-
-    if variable is None:
-        # Checks if the variable exists in the global scope
-        variable = my_code.function_directory.get_function_variable(
-            my_code.global_scope, variable_name)
-        if variable is None:
-            print("The variable " + variable_name + " has not been declared")
-            sys.exit()
-        else:
-            if 'upper_limit' in variable:
-                # Appends the dimensioned variable to a stack, makes nesting
-                # vectors calls possible
-                my_code.list_variable_list.append(variable)
-            else:
-                print("The variable " + variable_name + " is not an array")
-                sys.exit()
-    else:
-        if 'upper_limit' in variable:
-            # Appends the dimensioned variable to a stack, makes nesting
-            # vectors calls possible
-            my_code.list_variable_list.append(variable)
-        else:
-            print("The variable " + variable_name + " is not an array")
-            sys.exit()
+	variable_name = p[-3]
+	my_code.operand_list.pop()
+	# Checks if the variable exists in the local scope
+	variable = my_code.function_directory.get_function_variable(my_code.current_scope, variable_name)
+	if variable is None:
+		# Checks if the variable exists in the global scope
+		variable = my_code.function_directory.get_function_variable(my_code.global_scope, variable_name)
+		if variable is None:
+			print("The variable " + variable_name + " has not been declared")
+			sys.exit()
+		else:
+			if 'upper_limit' in variable:
+				# Appends the dimensioned variable to a stack, makes nesting
+				# vectors calls possible
+				my_code.list_variable_list.append(variable)
+			else:
+				print("The variable " + variable_name + " is not an array")
+				sys.exit()
+	else:
+		if 'upper_limit' in variable:
+			# Appends the dimensioned variable to a stack, makes nesting
+			# vectors calls possible
+			my_code.list_variable_list.append(variable)
+		else:
+			print("The variable " + variable_name + " is not an array")
+			sys.exit()
 
 def p_list_point2(p):
 	'''list_point2 : '''
@@ -352,41 +419,33 @@ def p_list_point2(p):
 
 def p_list_point3(p):
 	'''list_point3 : '''
-    index_address = my_code.operand_list.pop()
-    index_type = my_code.type_stack.pop()
-
-    # Returns the last dimensioned variable called
-    dimensioned_variable = my_code.list_variable_list.pop()
-
-    # Verifies the type of the index
-    if index_type != 'int':
-        print("Array indexes should be of type int")
-        sys.exit()
-    else:
-        # Verifies the boundaries
-        quadruple = Quadruple(my_code.quadruple_number, 'VERF_INDEX',
-            index_address, dimensioned_variable['lower_limit'], dimensioned_variable['upper_limit'])
-        my_code.quadruple_list.append(quadruple)
-        my_code.quadruple_number += 1
-
-        # The base address of the dimensioned variable must be stored in new
-        # address, this makes possible the adding of the base address number and
-        # not its content
-        base_address_proxy = my_code.memory.request_global_address('int',
-            dimensioned_variable['memory_adress'])
-        index_address_result = my_code.memory.request_global_address('int')
-
-        # Adds the base address number with the result of the index
-        quadruple = Quadruple(my_code.quadruple_number, '+', base_address_proxy,
-            index_address, index_address_result)
-        my_code.quadruple_list.append(quadruple)
-        my_code.quadruple_number += 1
-
-        # Stores the index address result int a dictionary to difference it
-        # from a regular address
-        result_proxy = {'index_address' : index_address_result}
-        my_code.operand_list.append(result_proxy)
-        my_code.type_stack.append(dimensioned_variable['type'])
+	index_address = my_code.operand_list.pop()
+	index_type = my_code.type_list.pop()
+	# Returns the last dimensioned variable called
+	dimensioned_variable = my_code.list_variable_list.pop()
+	# Verifies the type of the index
+	if index_type != 'int':
+		print("Array indexes should be of type int")
+		sys.exit()
+	else:
+		# Verifies the boundaries
+		quadruple = Quadruple(my_code.quadruple_number, 'VERF_INDEX', index_address, dimensioned_variable['lower_limit'], dimensioned_variable['upper_limit'])
+		my_code.quadruple_list.append(quadruple)
+		my_code.quadruple_number += 1
+		# The base address of the dimensioned variable must be stored in new
+		# address, this makes possible the adding of the base address number and
+		# not its content
+		base_address_proxy = my_code.memory.get_global_address('int', dimensioned_variable['memory_address'])
+		index_address_result = my_code.memory.get_global_address('int')
+		# Adds the base address number with the result of the index
+		quadruple = Quadruple(my_code.quadruple_number, '+', base_address_proxy, index_address, index_address_result)
+		my_code.quadruple_list.append(quadruple)
+		my_code.quadruple_number += 1
+		# Stores the index address result int a dictionary to difference it
+		# from a regular address
+		result_proxy = {'index_address' : index_address_result}
+		my_code.operand_list.append(result_proxy)
+		my_code.type_list.append(dimensioned_variable['type'])
 
 def p_list_point4(p):
 	'''list_point4 : '''
@@ -549,7 +608,36 @@ def create_conditional_quadruple(p):
     my_code.quadruple_number += 1
 
 
-
+def solve_operation(p):
+    """Solve an operation from the stacks"""
+    # Gets the operands and its types
+    right_operand = my_code.operand_list.pop()
+    right_type = my_code.type_list.pop()
+    left_operand = my_code.operand_list.pop()
+    left_type = my_code.type_list.pop()
+    # Gets the operator
+    operator = my_code.operator_list.pop()
+    # Gets the type of the result
+    result_type = my_code.semantic_cube.get_semantic_type(left_type ,
+        right_type, operator)
+    if result_type != 'error':
+        #my_code.temporal_variable_counter += 1
+        #temporal_variable = "t" + str(my_code.temporal_variable_counter)
+        # Gets an address of the temporal memory
+        temporal_variable_address = my_code.memory.get_temporal_address(result_type)
+        my_code.function_directory.add_temporal_to_function(my_code.current_scope,
+            result_type)
+        # Creates the quadruple
+        quadruple = Quadruple(my_code.quadruple_number, operator, left_operand,
+            right_operand , temporal_variable_address)
+        # Adds the quadruple to its list and the results to the stacks
+        my_code.quadruple_list.append(quadruple)
+        my_code.quadruple_number += 1
+        my_code.operand_list.append(temporal_variable_address)
+        my_code.type_list.append(result_type)
+    else:
+        print('Operation type mismatch at {0}'.format(p.lexer.lineno))
+        sys.exit()
 
 # Build the parser
 parser = yacc.yacc()

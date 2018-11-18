@@ -8,16 +8,16 @@ class Memory():
         self.constant_memory = MemorySegment('Constant', 20000, 4000)
         self.temporal_memory = MemorySegment('Temporal', 25000, 4000)
 
-    def get_global_address(self, value_type, value=None):
+    def get_global_address(self, value_type, value=None,):
     	return self.global_memory.get_address(value_type, value)
 
-    def get_local_address(self, value):
+    def get_local_address(self, value_type, value=None,):
     	return self.local_memory.get_address(value_type, value)
 
-    def get_constant_address(self, value):
+    def get_constant_address(self, value_type, value=None):
     	return self.constant_memory.get_address(value_type, value)
 
-    def get_temporal_address(self, value):
+    def get_temporal_address(self, value_type, value=None):
     	return self.temporal_memory.get_address(value_type, value)
 
     def get_global_address_list(self, value_type, total_addresses, value=None):
@@ -31,19 +31,21 @@ class Memory():
             total_addresses, value)
 
     def get_memory_type(self, address):
-        if (address >= self.global_memory.initial_addres and address <= self.global_memory.last_address):
+        if (address >= self.global_memory.initial_address and address <= self.global_memory.last_address):
             return 'global'
-        elif (address >= self.local_memory.initial_addres and address <= self.local_memory.last_address):
+        elif (address >= self.local_memory.initial_address and address <= self.local_memory.last_address):
             return 'local'
-        elif (address >= self.temporal_memory.initial_addres and address <= self.temporal_memory.last_address):
+        elif (address >= self.temporal_memory.initial_address and address <= self.temporal_memory.last_address):
             return 'temporal'
-        elif (address >= self.constant_memory.initial_addres and address <= self.constant_memory.last_address):
+        elif (address >= self.constant_memory.initial_address and address <= self.constant_memory.last_address):
             return 'constant'
         else:
             print("Error. Invalid address")
 
+            '''
     def get_value(self, address):
       memory_type=self.get_memory_type(address)
+      print("memoryyyyyyyyyyyyyyyyyyyyyyyy")
       if memory_type=='global':
         return self.get_global_address(address)
       elif memory_type=='local':
@@ -54,6 +56,20 @@ class Memory():
         return self.get_temporal_address(address)
       else:
         print("Error. Invalid memory type")
+        '''
+
+    def get_value(self, address):
+        """Returns a value according of the address"""
+        memory_type = self.get_memory_type(address)
+        if memory_type == 'global':
+            return self.global_memory.get_value(address)
+        elif memory_type == 'local':
+            return self.local_memory.get_value(address)
+        elif memory_type == 'temporal':
+            return self.temporal_memory.get_value(address)
+        elif memory_type == 'constant':
+            return self.constant_memory.get_value(address)
+
 
     def set_value(self, address, value):
       type=self.get_memory_type(address)
@@ -72,6 +88,9 @@ class Memory():
       self.local_memory.restart_memory()
       self.temporal_memory.restart_memory()
 
+    def check_existing_constant_value(self, value_type, value):
+        """Checks if the value exists in the constant memory"""
+        return self.constant_memory.in_segment(value_type, value)
 
     def print_memory(self, memory_type, segment_type):
       if memory_type == 'global':

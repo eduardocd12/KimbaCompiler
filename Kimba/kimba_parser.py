@@ -20,14 +20,12 @@ def p_program(p):
 
 def p_program_point(p):
 	'''program_point : '''
-	# Create and add quadruple main
 	quadruple = Quadruple(my_code.quadruple_number, 'GOTO', 'MAIN', None, None)
 	my_code.quadruple_list.append(quadruple)
 	my_code.quadruple_number += 1
 
 def p_program_point2(p):
 	'''program_point2 : '''
-	# Add global function name to directory
 	my_code.global_scope = p[-2]
 	my_code.current_scope = p[-2]
 	my_code.function_directory.add_function(my_code.global_scope, 'void')
@@ -35,7 +33,6 @@ def p_program_point2(p):
 
 def p_program_point3(p):
 	'''program_point3 : '''
-	# Adds the main function to the directory, the index of the quadruple of the main function
 	my_code.current_scope = p[-1]
 	my_code.function_directory.add_function(my_code.current_scope, 'void')
 	my_code.function_directory.set_function_quadruple_number(my_code.current_scope, my_code.quadruple_number)
@@ -57,7 +54,6 @@ def p_vars(p):
 def p_vars_aux(p):
     '''vars_aux : COMMA ID vars_aux
                 | empty'''
-    # Stores the variables found in a temporal list
     if p[-1] is not None:
         variable_name = p[-1]
         my_code.temporal_variables.append(variable_name)
@@ -69,17 +65,14 @@ def p_vars_point(p):
 	'''vars_point : '''
 	variable_type = p[-1]
 	my_code.temporal_variables.reverse()
-	# Adds all the variables declared in the line to the function
 	for variable in my_code.temporal_variables:
 		variable_declared = my_code.function_directory.check_existing_variable(my_code.current_scope, variable)
 		if variable_declared == False:
-			# Request the addresses depending of the scope
 			if my_code.current_scope == my_code.global_scope:
 				variable_address = my_code.memory.get_global_address(variable_type)
 			else:
 				variable_address = my_code.memory.get_local_address(variable_type)
 			my_code.function_directory.add_variable_to_function(my_code.current_scope, variable_type, variable, variable_address)
-	# Clears the list of temporal variables to start a new line of declarations
 	del my_code.temporal_variables[:]
 
 # For list declarations
@@ -89,7 +82,6 @@ def p_vars_point2(p):
 	variable = my_code.list_variable
 	variable_declared = my_code.function_directory.check_existing_variable(my_code.current_scope, variable['name'])
 	if variable_declared == False:
-		# Request the addresses needed for the variable
 		if my_code.current_scope == my_code.global_scope:
 			variable_address = my_code.memory.get_global_address_list(variable_type, variable['upper_limit'])
 		else:
@@ -104,7 +96,6 @@ def p_list_declaration_point(p):
 	dimension_size_address = my_code.operand_list.pop()
 	dimension_size = my_code.memory.get_value(dimension_size_address)
 	dimension_type = my_code.type_list.pop()
-	# Verifies the dimension of the variable
 	if dimension_type != 'int':
 		print("Array indexes should be of type int")
 		sys.exit()
@@ -112,7 +103,6 @@ def p_list_declaration_point(p):
 		print("Array dimension should be greater than 0")
 		sys.exit()
 	else:
-		# Adds the information of the variable
 		my_code.list_variable_flag = True
 		my_code.list_variable = {
 			'name' : dimensioned_variable_name,
@@ -218,26 +208,21 @@ def p_var_const(p):
 
 def p_var_const_point(p):
 	'''var_const_point : '''
-    # Checks if the variable exists in the local scope
 	variable = my_code.function_directory.get_function_variable(my_code.current_scope, p[-1])
 	if variable is None:
-		# Checks if the variable exists in the global scope
 		variable = my_code.function_directory.get_function_variable(my_code.global_scope, p[-1])
 		if variable is None:
 			print("The variable " + p[-1] + " has not been declared")
 			sys.exit()
 		else:
-			# Adds the variale to the operand list
 			my_code.operand_list.append(variable['memory_address'])
 			my_code.type_list.append(variable['type'])
 	else:
-		# Adds the variale to the operand list
 		my_code.operand_list.append(variable['memory_address'])
 		my_code.type_list.append(variable['type'])
 
 def p_var_const_point2(p):
 	'''var_const_point2 : '''
-    # Gets the constant address, creates one if doesn't exists
 	constant_address = my_code.memory.check_existing_constant_value('int', int(p[-1]))
 	if constant_address is None:
 		constant_address = my_code.memory.get_constant_address('int', int(p[-1]))
@@ -246,7 +231,6 @@ def p_var_const_point2(p):
 
 def p_var_const_point3(p):
 	'''var_const_point3 : '''
-    # Gets the constant address, creates one if doesn't exists
 	constant_address = my_code.memory.check_existing_constant_value('float', float(p[-1]))
 	if constant_address is None:
 		constant_address = my_code.memory.get_constant_address('float', float(p[-1]))
@@ -255,7 +239,6 @@ def p_var_const_point3(p):
 
 def p_var_const_point4(p):
 	'''var_const_point4 : '''
-    # Gets the constant address, creates one if doesn't exists
 	constant_address = my_code.memory.check_existing_constant_value('string', str(p[-1]))
 	if constant_address is None:
 		constant_address = my_code.memory.get_constant_address('string', str(p[-1]))
@@ -265,14 +248,12 @@ def p_var_const_point4(p):
 def p_var_const_point5(p):
 	'''var_const_point5 : '''
 	if p[-1] == "True":
-		# Gets the constant address, creates one if doesn't exists
 		constant_address = my_code.memory.check_existing_constant_value('boolean', True)
 		if constant_address is None:
 			constant_address = my_code.memory.get_constant_address('boolean', True)
 		my_code.operand_list.append(constant_address)
 		my_code.type_list.append('boolean')
 	else:
-		# Gets the constant address, creates one if doesn't exists
 		constant_address = my_code.memory.check_existing_constant_value('boolean', False)
 		if constant_address is None:
 			constant_address = my_code.memory.get_constant_address('boolean', False)
@@ -292,24 +273,20 @@ def p_return(p):
 def p_return_point(p):
 	'''return_point : ''' 
 	my_code.return_flag = True
-	# Gets the return operand and the function been called
 	operand = my_code.operand_list.pop()
 	operand_type = my_code.type_list.pop()
 	function = my_code.function_directory.get_function(my_code.current_scope)
 	function_type = function['return_type']
 	function_return_address = function['return_address']
 
-	# Checks if the types match
 	if function_type != operand_type:
 		print("Return type of function {0} doesn't match function return type".format(my_code.current_scope))
 		sys.exit()
 
-	# Creates the returns quadruples and sets the address they will return
 	quadruple = Quadruple(my_code.quadruple_number, 'RETURN', operand, None, function_return_address)
 	my_code.quadruple_list.append(quadruple)
 	my_code.quadruple_number += 1
 
-	# Creates the GOTO quadruple and stores them in a list for multiple returns
 	quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
 	my_code.return_list.append(my_code.quadruple_number)
 	my_code.quadruple_list.append(quadruple)
@@ -343,26 +320,18 @@ def p_params_aux(p):
 
 def p_functions_point(p):
 	'''functions_point : '''
-	### 1. Need to separate space in the global memory for the return value if its
-	### not a void function, the whole function acts like a variable in te global memory
-	### 2. Validate the te funcion hasn't been declared yet
 
-	# Determines the name of the function and its type
 	my_code.current_scope = p[-4]
 	function_type = p[-5]
 	parameter_addresses_list = []
 
-	# Adds the function to the directory
 	my_code.function_directory.add_function(my_code.current_scope, function_type)
 
-	# Sets the starting quadruple of the function
 	my_code.function_directory.set_function_quadruple_number(my_code.current_scope, my_code.quadruple_number)
 	if function_type != 'void':
-		# Sets the address return of the function
 		function_address = my_code.memory.get_global_address(function_type)
 		my_code.function_directory.set_function_address(my_code.current_scope, function_address)
 
-	# Adds the parameters to the function variable table
 	parameters = zip(my_code.temporal_parameters_names, my_code.temporal_parameters_types)
 
 	for parameter_name, parameter_type in parameters:
@@ -370,10 +339,8 @@ def p_functions_point(p):
 		parameter_addresses_list.append(parameter_address)
 		my_code.function_directory.add_variable_to_function(my_code.current_scope, parameter_type, parameter_name, parameter_address)
 
-	# Adds the parameters signature to the function
 	my_code.function_directory.add_parameter_to_function(my_code.current_scope, my_code.temporal_parameters_types, parameter_addresses_list)
 
-	# Clears the temporal parameters
 	del my_code.temporal_parameters_names[:]
 	del my_code.temporal_parameters_types[:]
 
@@ -381,7 +348,6 @@ def p_functions_point2(p):
 	'''functions_point2 : '''
 	function_type = p[-7]
 
-	# Checks if the functions and procedures have the correct return semantics
 	if function_type == 'void' and my_code.return_flag:
 		print('Function {0} of type void should not have return statement.'.format(my_code.current_scope))
 		sys.exit()
@@ -389,11 +355,9 @@ def p_functions_point2(p):
 		print('Function {0} of type {1} should have return statement.'.format(my_code.current_scope, function_type))
 		sys.exit()
 	else:
-		# Creates the end of function quadruple
 		quadruple = Quadruple(my_code.quadruple_number, 'ENDFUNC', None, None, None)
 		my_code.quadruple_list.append(quadruple)
 
-	# Fills the returns quadruples if exist
 	if my_code.return_flag:
 		while my_code.return_list:
 			quadruple_number_to_fill = my_code.return_list.pop()
@@ -401,7 +365,6 @@ def p_functions_point2(p):
 	my_code.quadruple_number += 1
 	my_code.return_flag = False
 
-	# Reset the temporal memory
 	my_code.current_scope = my_code.global_scope
 	my_code.memory.restart_memory()
 
@@ -443,18 +406,14 @@ def p_assignment_point(p):
 	'''assignment_point : '''
 	variable = my_code.function_directory.get_function_variable(my_code.current_scope, p[-1])
 	if variable is None:
-		# Checks if the variable exists in the global scope
-		# print("Scope : " + my_code.global_scope)
 		variable = my_code.function_directory.get_function_variable(my_code.global_scope, p[-1])
 		if variable is None:
 			print("The variable " + p[-1] + " has not been declared")
 			sys.exit()
 		else:
-			# Adds the variale to the operand list
 			my_code.operand_list.append(variable['memory_address'])
 			my_code.type_list.append(variable['type'])
 	else:
-		# Adds the variale to the operand list
 		my_code.operand_list.append(variable['memory_address'])
 		my_code.type_list.append(variable['type'])
 
@@ -466,8 +425,6 @@ def p_assignment_point3(p):
 	'''assignment_point3 : '''
 	received_input_address = my_code.operand_list.pop()
 	my_code.type_list.pop()
-	# Gets the type of the variable where the input will be stored and request
-	# a temporal address to resolve its assignment
 	variable_type = my_code.type_list[-1]
 	assignation_address = my_code.memory.get_temporal_address(variable_type)
 
@@ -479,21 +436,16 @@ def p_assignment_point3(p):
 
 def p_assignment_point4(p):
 	'''assignment_point4 : '''
-	# Gets the operator
 	operator = my_code.operator_list.pop()
 	if operator == '=':
-		# Gets the operands and its types
 		right_operand = my_code.operand_list.pop()
 		right_type = my_code.type_list.pop()
 		left_operand = my_code.operand_list.pop()
 		left_type = my_code.type_list.pop()
-		# Gets the type of the result
 		result_type = my_code.semantic_cube.get_semantic_type(left_type, right_type, operator)
 		if result_type != 'error':
-			# Creates the quadruple
 			quadruple = Quadruple(my_code.quadruple_number, operator, right_operand, None, left_operand)
 
-			# Adds the quadruple to its list and increments the counter
 			my_code.quadruple_list.append(quadruple)
 			my_code.quadruple_number += 1
 		else:
@@ -512,26 +464,20 @@ def p_list_point(p):
 	'''list_point : '''
 	variable_name = p[-3]
 	my_code.operand_list.pop()
-	# Checks if the variable exists in the local scope
 	variable = my_code.function_directory.get_function_variable(my_code.current_scope, variable_name)
 	if variable is None:
-		# Checks if the variable exists in the global scope
 		variable = my_code.function_directory.get_function_variable(my_code.global_scope, variable_name)
 		if variable is None:
 			print("The variable " + variable_name + " has not been declared")
 			sys.exit()
 		else:
 			if 'upper_limit' in variable:
-				# Appends the dimensioned variable to a list, makes nesting
-				# vectors calls possible
 				my_code.list_variable_list.append(variable)
 			else:
 				print("The variable " + variable_name + " is not an array")
 				sys.exit()
 	else:
 		if 'upper_limit' in variable:
-			# Appends the dimensioned variable to a list, makes nesting
-			# vectors calls possible
 			my_code.list_variable_list.append(variable)
 		else:
 			print("The variable " + variable_name + " is not an array")
@@ -545,28 +491,19 @@ def p_list_point3(p):
 	'''list_point3 : '''
 	index_address = my_code.operand_list.pop()
 	index_type = my_code.type_list.pop()
-	# Returns the last dimensioned variable called
 	dimensioned_variable = my_code.list_variable_list.pop()
-	# Verifies the type of the index
 	if index_type != 'int':
 		print("Array indexes should be of type int")
 		sys.exit()
 	else:
-		# Verifies the boundaries
 		quadruple = Quadruple(my_code.quadruple_number, 'VERF_INDEX', index_address, dimensioned_variable['lower_limit'], dimensioned_variable['upper_limit'])
 		my_code.quadruple_list.append(quadruple)
 		my_code.quadruple_number += 1
-		# The base address of the dimensioned variable must be stored in new
-		# address, this makes possible the adding of the base address number and
-		# not its content
 		base_address_proxy = my_code.memory.get_global_address('int', dimensioned_variable['memory_address'])
 		index_address_result = my_code.memory.get_global_address('int')
-		# Adds the base address number with the result of the index
 		quadruple = Quadruple(my_code.quadruple_number, '+', base_address_proxy, index_address, index_address_result)
 		my_code.quadruple_list.append(quadruple)
 		my_code.quadruple_number += 1
-		# Stores the index address result int a dictionary to difference it
-		# from a regular address
 		result_proxy = {'index_address' : index_address_result}
 		my_code.operand_list.append(result_proxy)
 		my_code.type_list.append(dimensioned_variable['type'])
@@ -586,11 +523,9 @@ def p_condition_point(p):
 
 def p_condition_point2(p):
     '''condition_point2 : '''
-    # Gets the number of the GotoF quadruple to be filled
     quadruple_number_to_fill = my_code.jump_list.pop()
     quadruple = my_code.quadruple_list[quadruple_number_to_fill]
 
-    # Fills the pending GoToF quadruple with the number of the next quadruple
     quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 def p_else(p):
@@ -602,16 +537,12 @@ def p_else_point(p):
     quadruple = Quadruple(my_code.quadruple_number, 'GOTO', None, None, None)
     my_code.quadruple_list.append(quadruple)
 
-    # Gets the number of the GotoF quadruple to be filled
     quadruple_number_to_fill = my_code.jump_list.pop()
     quadruple = my_code.quadruple_list[quadruple_number_to_fill]
 
-    # Stores the actual quadruple_number GoTo in the jump list
     my_code.jump_list.append(my_code.quadruple_number - 1)
     my_code.quadruple_number += 1
 
-    # Fills the pending GoToF quadruple with the number of the next quadruple
-    # after GoTo was created
     quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 ### WRITE
@@ -641,7 +572,6 @@ def p_loop_point2(p):
 
 def p_loop_point3(p):
     '''loop_point3 : '''
-    # Gets the number of the GotoF quadruple and where the while starts
     quadruple_number_to_fill = my_code.jump_list.pop()
     quadruple_number_to_return = my_code.jump_list.pop()
 
@@ -650,7 +580,6 @@ def p_loop_point3(p):
     my_code.quadruple_number += 1
 
     conditional_quadruple = my_code.quadruple_list[quadruple_number_to_fill]
-    # Fills the pending GoToF quadruple with the number of the next quadruple
     conditional_quadruple.fill_quadruple_jump(my_code.quadruple_number)
 
 ### METHOD
@@ -665,14 +594,11 @@ def p_method_point(p):
 def p_method_point2(p):
     '''method_point2 : '''
     function = p[-3]
-    # Checks if the function exists
     if my_code.function_directory.search_function(function):
-        # Creates its quadruple action
         quadruple = Quadruple(my_code.quadruple_number, 'ERA', function, None, None)
         my_code.quadruple_list.append(quadruple)
         my_code.quadruple_number += 1
 
-        # Retrieves the parameters of the function
         parameters = my_code.function_directory.get_function_parameters(function)
         my_code.temporal_arguments_types = list(parameters['types'])
     else:
@@ -685,13 +611,11 @@ def p_method_point3(p):
 
 def p_method_point4(p):
     '''method_point4 : '''
-    # If there are more parameters than arguments
     if not my_code.temporal_arguments_types:
         # Retrieves the function and is quadruple number
         function = p[-7]
         function_quadruple_number = my_code.function_directory.get_function_quadruple_number(function)
 
-        # Creates its call quadruple
         quadruple = Quadruple(my_code.quadruple_number, 'GOSUB', function, None, function_quadruple_number)
         my_code.quadruple_list.append(quadruple)
         my_code.quadruple_number += 1
@@ -721,14 +645,11 @@ def p_function_point(p):
 def p_function_point2(p):
     '''function_point2 : '''
     function = p[-3]
-    # Checks if the function exists
     if my_code.function_directory.search_function(function):
-        # Creates its quadruple action
         quadruple = Quadruple(my_code.quadruple_number, 'ERA', function, None, None)
         my_code.quadruple_list.append(quadruple)
         my_code.quadruple_number += 1
 
-        # Retrieves the parameters of the function
         parameters = my_code.function_directory.get_function_parameters(function)
         my_code.temporal_arguments_types = list(parameters['types'])
     else:
@@ -741,13 +662,10 @@ def p_function_point3(p):
 
 def p_function_point4(p):
     '''function_point4 : '''
-    # If there are more parameters than arguments
     if not my_code.temporal_arguments_types:
-        # Retrieves the function and is quadruple number
         function = p[-7]
         function_quadruple_number = my_code.function_directory.get_function_quadruple_number(function)
 
-        # Creates its call quadruple
         quadruple = Quadruple(my_code.quadruple_number, 'GOSUB', function,
             None, function_quadruple_number)
         my_code.quadruple_list.append(quadruple)
@@ -765,12 +683,9 @@ def p_function_point5(p):
 
     #my_code.temporal_variable_counter += 1
 
-    # Requests a temporal variable to store the result of the function
     temporal_variable_address = my_code.memory.get_temporal_address(function_type)
     my_code.function_directory.add_temporal_to_function(my_code.current_scope, function_type)
 
-    # Assignates the result to a new temporal variable and adds it to the
-    # operand stack
     quadruple = Quadruple(my_code.quadruple_number, '=', function_return, None, temporal_variable_address)
     my_code.quadruple_list.append(quadruple)
     my_code.quadruple_number += 1
@@ -791,14 +706,11 @@ def p_args_aux(p):
 
 def p_args_point(p):
     '''args_point : '''
-    # If there are more arguments than parameters
     if my_program.temporal_arguments_types:
-        # Gets the argument and its type from the stacks
         argument = my_program.operand_list.pop()
         argument_type = my_program.type_list.pop()
         parameter_type = my_program.temporal_arguments_types.pop(0)
 
-        # Creates the quadruple for the parameter
         if argument_type == parameter_type:
             quadruple = Quadruple(my_program.quadruple_number, 'PARAMETER', argument, None, None)
             my_program.quadruple_list.append(quadruple)
@@ -819,22 +731,16 @@ def p_string_var(p):
 
 def p_string_var_point(p):
 	'''string_var_point : '''
-    # Checks if the variable exists in the local scope
-    # print("Scope : " + my_code.current_scope)
 	variable = my_code.function_directory.get_function_variable(my_code.current_scope, p[-1])
 	if variable is None:
-		# Checks if the variable exists in the global scope
-		# print("Scope : " + my_code.global_scope)
 		variable = my_code.function_directory.get_function_variable(my_code.global_scope, p[-1])
 		if variable is None:
 			print("The variable " + p[-1] + " has not been declared")
 			sys.exit()
 		else:
-			# Adds the variale to the operand list
 			my_code.operand_list.append(variable['memory_address'])
 			my_code.type_list.append(variable['type'])
 	else:
-		# Adds the variale to the operand list
 		my_code.operand_list.append(variable['memory_address'])
 		my_code.type_list.append(variable['type'])
 	
@@ -843,14 +749,12 @@ def p_string_var_point2(p):
 	'''string_var_point2 : '''
 	variable = p[-2]
 	variable_type = my_program.type_list[-1]
-	# Checks if the variable type is string
 	if variable_type != 'string':
 		print("The variable: " + variable + " is not a string")
 		sys.exit()   
 
 def p_string_var_point3(p):
 	'''string_var_point3 : '''  
-    # Gets the constant address, creates one if doesn't exists
 	constant_address = my_code.memory.check_existing_constant_value('string', str(p[-1]))
 	if constant_address is None:
 		constant_address = my_code.memory.get_constant_address('string', str(p[-1]))
@@ -897,27 +801,19 @@ def create_conditional_quadruple(p):
 
 def solve_operation(p):
     """Solve an operation from the lists"""
-    # Gets the operands and its types
     right_operand = my_code.operand_list.pop()
     right_type = my_code.type_list.pop()
     left_operand = my_code.operand_list.pop()
     left_type = my_code.type_list.pop()
-    # Gets the operator
     operator = my_code.operator_list.pop()
-    # Gets the type of the result
     result_type = my_code.semantic_cube.get_semantic_type(left_type ,
         right_type, operator)
     if result_type != 'error':
-        #my_code.temporal_variable_counter += 1
-        #temporal_variable = "t" + str(my_code.temporal_variable_counter)
-        # Gets an address of the temporal memory
         temporal_variable_address = my_code.memory.get_temporal_address(result_type)
         my_code.function_directory.add_temporal_to_function(my_code.current_scope,
             result_type)
-        # Creates the quadruple
         quadruple = Quadruple(my_code.quadruple_number, operator, left_operand,
             right_operand , temporal_variable_address)
-        # Adds the quadruple to its list and the results to the lists
         my_code.quadruple_list.append(quadruple)
         my_code.quadruple_number += 1
         my_code.operand_list.append(temporal_variable_address)
@@ -926,7 +822,7 @@ def solve_operation(p):
         print('Operation type mismatch at {0}'.format(p.lexer.lineno))
         sys.exit()
 
-# Build the parser
+# Parser
 parser = yacc.yacc()
 with open("archivo_entrada.txt") as file_object:
     code = file_object.read()

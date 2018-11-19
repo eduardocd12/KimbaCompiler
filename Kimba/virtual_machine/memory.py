@@ -1,105 +1,145 @@
-from .memory_segment import MemorySegment
+from virtual_machine.segment import Segment
 
 class Memory():
-    def __init__(self):
+    def __init__(self, memory_name, initial_address, num_of_addresses):
         """Class constructor"""
-        self.global_memory = MemorySegment('Global', 10000, 4000)
-        self.local_memory = MemorySegment('Local', 15000, 4000)
-        self.constant_memory = MemorySegment('Constant', 20000, 4000)
-        self.temporal_memory = MemorySegment('Temporal', 25000, 4000)
+        self.name = memory_name
+        self.size = int(num_of_addresses / 4)
+        self.initial_address = initial_address
+        self.last_address= initial_address + num_of_addresses - 1
 
-    def get_global_address(self, value_type, value=None,):
-    	return self.global_memory.get_address(value_type, value)
+        self.int_initial_address = initial_address
+        self.int_last_address = initial_address + self.size - 1
+        self.float_initial_address = self.int_last_address + 1
+        self.float_last_address = self.float_initial_address + self.size - 1
+        self.string_initial_address = self.float_last_address + 1
+        self.string_last_address = self.string_initial_address + self.size - 1
+        self.boolean_initial_address = self.string_last_address + 1
+        self.boolean_last_address = self.boolean_initial_address + self.size - 1
 
-    def get_local_address(self, value_type, value=None,):
-    	return self.local_memory.get_address(value_type, value)
+        self.int_segment = Segment('Integer', self.int_initial_address,
+            self.int_last_address)
+        self.float_segment = Segment('Float', self.float_initial_address,
+            self.float_last_address)
+        self.string_segment = Segment('String', self.string_initial_address,
+            self.string_last_address)
+        self.boolean_segment = Segment('Boolean', self.boolean_initial_address,
+            self.boolean_last_address)
 
-    def get_constant_address(self, value_type, value=None):
-    	return self.constant_memory.get_address(value_type, value)
+    def get_address(self, segment_type, value=None):
+        if segment_type == 'int':
+            if value is None:
+                value = 0
+            return self.int_segment.set_address(value)
+        elif segment_type == 'float':
+            if value is None:
+                value = 0.0
+            return self.float_segment.set_address(value)
+        elif segment_type == 'string':
+            if value is None:
+                value = ""
+            return self.string_segment.set_address(value)
+        elif segment_type == 'boolean':
+            if value is None:
+                value = False
+            return self.boolean_segment.set_address(value)
 
-    def get_temporal_address(self, value_type, value=None):
-    	return self.temporal_memory.get_address(value_type, value)
+    def get_address_list(self, segment_type, num_of_addresses, value=None):
+        if segment_type == 'int':
+            if value is None:
+                value = 0
+            return self.int_segment.set_address_list(num_of_addresses, value)
+        elif segment_type == 'float':
+            if value is None:
+                value = 0.0
+            return self.float_segment.set_address_list(num_of_addresses, value)
+        elif segment_type == 'string':
+            if value is None:
+                value = ""
+            return self.string_segment.set_address_list(num_of_addresses, value)
+        elif segment_type == 'boolean':
+            if value is None:
+                value = False
+            return self.boolean_segment.set_address_list(num_of_addresses, value)
 
-    def get_global_address_list(self, value_type, total_addresses, value=None):
-        """Requests a bunch of global addresses"""
-        return self.global_memory.get_address_list(value_type,
-            total_addresses, value)
 
-    def get_local_address_list(self, value_type, total_addresses, value=None):
-        """Requests a bunch of local addresses"""
-        return self.global_memory.get_address_list(value_type,
-            total_addresses, value)
-
-    def get_memory_type(self, address):
-        if (address >= self.global_memory.initial_address and address <= self.global_memory.last_address):
-            return 'global'
-        elif (address >= self.local_memory.initial_address and address <= self.local_memory.last_address):
-            return 'local'
-        elif (address >= self.temporal_memory.initial_address and address <= self.temporal_memory.last_address):
-            return 'temporal'
-        elif (address >= self.constant_memory.initial_address and address <= self.constant_memory.last_address):
-            return 'constant'
+    def get_type(self, address):
+        if (address >= self.int_initial_address and address <=
+            self.int_last_address):
+            return 'int'
+        elif (address >= self.float_initial_address and address <=
+            self.float_last_address):
+            return 'float'
+        elif (address >= self.string_initial_address and address <=
+            self.string_last_address):
+            return 'string'
+        elif (address >= self.boolean_initial_address and address <=
+            self.boolean_last_address):
+            return 'boolean'
         else:
-            print("Error. Invalid address")
-
-            '''
-    def get_value(self, address):
-      memory_type=self.get_memory_type(address)
-      print("memoryyyyyyyyyyyyyyyyyyyyyyyy")
-      if memory_type=='global':
-        return self.get_global_address(address)
-      elif memory_type=='local':
-        return self.get_local_address(address)
-      elif memory_type=='constant':
-        return self.get_constant_address(address)
-      elif memory_type=='temporal':
-        return self.get_temporal_address(address)
-      else:
-        print("Error. Invalid memory type")
-        '''
+            print ("Error. Invalid address")
 
     def get_value(self, address):
-        """Returns a value according of the address"""
-        memory_type = self.get_memory_type(address)
-        if memory_type == 'global':
-            return self.global_memory.get_value(address)
-        elif memory_type == 'local':
-            return self.local_memory.get_value(address)
-        elif memory_type == 'temporal':
-            return self.temporal_memory.get_value(address)
-        elif memory_type == 'constant':
-            return self.constant_memory.get_value(address)
-
+        segment_type = self.get_type(address)
+        if segment_type == 'int':
+            return self.int_segment.get_value(address)
+        elif segment_type == 'float':
+            return self.float_segment.get_value(address)
+        elif segment_type == 'string':
+            return self.string_segment.get_value(address)
+        elif segment_type == 'boolean':
+            return self.boolean_segment.get_value(address)
 
     def set_value(self, address, value):
-      type=self.get_memory_type(address)
-      if type=='global':
-        self.global_memory.set_value(address, value)
-      elif type=='local':
-        self.local_memory.set_value(address, value)
-      elif type=='constant':
-        self.constant_memory.set_value(address, value)
-      elif type=='temporal':
-        self.temporal_memory.set_value(address, value)
-      else:
-        print("Error. Invalid memory type")
+        segment_type = self.get_type(address)
+        if segment_type == 'int':
+            self.int_segment.set_value(value, address)
+        elif segment_type == 'float':
+            return self.float_segment.set_value(value, address)
+        elif segment_type == 'string':
+            return self.string_segment.set_value(value, address)
+        elif segment_type == 'boolean':
+            return self.boolean_segment.set_value(address, value)
 
-    def restart_memory(self):
-      self.local_memory.reset_memory_segments()
-      self.temporal_memory.reset_memory_segments()
+    def in_segment(self, segment_type, value):
+        if segment_type == 'int':
+            return self.int_segment.value_in_segment(value)
+        elif segment_type == 'float':
+            return self.float_segment.value_in_segment(value)
+        elif segment_type == 'string':
+            return self.string_segment.value_in_segment(value)
+        elif segment_type == 'boolean':
+            return self.boolean_segment.value_in_segment(value)
 
-    def check_existing_constant_value(self, value_type, value):
-        """Checks if the value exists in the constant memory"""
-        return self.constant_memory.in_segment(value_type, value)
+    def reset_memory_segments(self):
+        self.int_segment.reset_segment()
+        self.float_segment.reset_segment()
+        self.string_segment.reset_segment()
+        self.boolean_segment.reset_segment()
 
-    def print_memory(self, memory_type, segment_type):
-      if memory_type == 'global':
-        self.global_memory.print_segment(segment_type)
-      elif memory_type == 'local':
-        self.local_memory.print_segment(segment_type)
-      elif memory_type == 'temporal':
-        self.temporal_memory.print_segment(segment_type)
-      elif memory_type == 'constant':
-        self.constant_memory.print_segment(segment_type)
-      else:
-        print("Error. Invalid memory type")
+    def print_segment(self, segment_type):
+        if segment_type == 'int':
+            self.int_segment.print_segment()
+        elif segment_type == 'float':
+            self.float_segment.print_segment()
+        elif segment_type == 'string':
+            self.string_segment.print_segment()
+        elif segment_type == 'boolean':
+            self.boolean_segment.print_segment()
+        else:
+            print("Error. Ivalid type")
+
+if __name__ == '__main__':
+    segmento = Memory('patito', 5000, 4000)
+    add = segmento.get_address('int')
+    #print(add)
+    #segmento.int_segment.set_address_list(5, 'hola')
+    segmento.get_address_list('int', 200, 'prueba')
+    add = segmento.get_address_list('boolean', 500, 'hello')
+    #print(add)
+    #print(segmento.get_value(8400))
+    #print(segmento.get_type(8100))
+    segmento.set_value(8100, 'holanda')
+    segmento.reset_memory_segments()
+    segmento.print_segment('int')
+    #print(segmento.get_address('boolean', 8100))

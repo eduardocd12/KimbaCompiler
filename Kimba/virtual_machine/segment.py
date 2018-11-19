@@ -1,5 +1,5 @@
 
-class TypeSegment():
+class Segment():
     def __init__(self, segment_name, initial_address, last_address):
         """Class constructor"""
         self.name = segment_name
@@ -74,7 +74,7 @@ class TypeSegment():
 
 
 if __name__ == '__main__':
-        segmento = TypeSegment('prueba', 8000, 8999)
+        segmento = Segment('prueba', 8000, 8999)
         segmento.set_address_list(5, '2002')
         segmento.set_value('value', 8100)
         #segmento.print_segment()

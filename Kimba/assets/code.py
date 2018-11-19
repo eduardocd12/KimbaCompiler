@@ -1,12 +1,12 @@
 from assets.function_directory import FunctionDirectory
 from assets.semantic_cube import SemanticCube
-from virtual_machine.memory import Memory
+from virtual_machine.memory_request import MemoryRequest
 
 class Code():
 	def __init__(self, global_scope = "", current_scope = ""):
 		self.global_scope = global_scope
 		self.current_scope = current_scope
-		self.memory = Memory()
+		self.memory = MemoryRequest()
 		self.function_directory = FunctionDirectory()
 		self.semantic_cube = SemanticCube()
 		self.quadruple_list = []

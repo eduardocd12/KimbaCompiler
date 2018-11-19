@@ -126,46 +126,49 @@ Rule 120   args -> empty
 Rule 121   args_aux -> COMMA expression_log args_point args_aux
 Rule 122   args_aux -> empty
 Rule 123   args_point -> <empty>
-Rule 124   string_var -> ID
-Rule 125   string_var -> CONST_STRING
-Rule 126   empty -> <empty>
-Rule 127   predefined_method -> START LPAREN RPAREN SEMICOLON
-Rule 128   predefined_method -> RESET LPAREN RPAREN SEMICOLON
-Rule 129   predefined_method -> END LPAREN RPAREN SEMICOLON
-Rule 130   predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON
-Rule 131   predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON
-Rule 132   predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON
-Rule 133   predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON
-Rule 134   predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON
-Rule 135   predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON
-Rule 136   predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON
-Rule 137   predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON
-Rule 138   predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON
+Rule 124   string_var -> ID string_var_point string_var_point2
+Rule 125   string_var -> CONST_STRING string_var_point3
+Rule 126   string_var_point -> <empty>
+Rule 127   string_var_point2 -> <empty>
+Rule 128   string_var_point3 -> <empty>
+Rule 129   empty -> <empty>
+Rule 130   predefined_method -> START LPAREN RPAREN SEMICOLON
+Rule 131   predefined_method -> RESET LPAREN RPAREN SEMICOLON
+Rule 132   predefined_method -> END LPAREN RPAREN SEMICOLON
+Rule 133   predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON
+Rule 134   predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON
+Rule 135   predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON
+Rule 136   predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON
+Rule 137   predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON
+Rule 138   predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON
+Rule 139   predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON
+Rule 140   predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON
+Rule 141   predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON
 
 Terminals, with rules where they appear
 
 AND                  : 15
 ASSIGN               : 83 84
 BOOLEAN              : 72
-CAMINA               : 132
+CAMINA               : 135
 COLON                : 5 6
-COLOR_PLUMA          : 138
-COMMA                : 8 65 121 135
+COLOR_PLUMA          : 141
+COMMA                : 8 65 121 138
 CONST_FLOAT          : 46
 CONST_INT            : 45
 CONST_STRING         : 47 125
-DIBUJA_CIRCULO       : 136
-DIBUJA_ESTRELLA      : 137
-DIBUJA_POLIGONO      : 135
+DIBUJA_CIRCULO       : 139
+DIBUJA_ESTRELLA      : 140
+DIBUJA_POLIGONO      : 138
 DIVIDES              : 37
 ELSE                 : 98
-END                  : 129
+END                  : 132
 EQUAL_THAN           : 26
 FALSE                : 56
 FLOAT                : 70
 FUNC                 : 59
-GIRA_DER             : 131
-GIRA_IZQ             : 130
+GIRA_DER             : 134
+GIRA_IZQ             : 133
 GREATER_OR_EQUAL_THAN : 24
 GREATER_THAN         : 22
 ID                   : 1 5 6 8 44 59 63 65 83 84 107 113 124
@@ -175,12 +178,12 @@ LBRACE               : 73
 LBRACKET             : 10 89
 LESS_OR_EQUAL_THAN   : 25
 LESS_THAN            : 23
-LPAREN               : 40 59 84 95 101 103 107 113 127 128 129 130 131 132 133 134 135 136 137 138
+LPAREN               : 40 59 84 95 101 103 107 113 130 131 132 133 134 135 136 137 138 139 140 141
 MAIN                 : 1
 MINUS                : 32
 NOT                  : 19
 NOT_EQUAL_THAN       : 27
-NO_DIBUJA            : 134
+NO_DIBUJA            : 137
 OR                   : 16
 PLUS                 : 31
 PRINT                : 101
@@ -188,12 +191,12 @@ PROGRAM              : 1
 RBRACE               : 73
 RBRACKET             : 10 89
 READ                 : 84
-RESET                : 128
+RESET                : 131
 RETURN               : 57
-RPAREN               : 40 59 84 95 101 103 107 113 127 128 129 130 131 132 133 134 135 136 137 138
-SEMICOLON            : 1 5 6 57 83 84 101 107 127 128 129 130 131 132 133 134 135 136 137 138
-SI_DIBUJA            : 133
-START                : 127
+RPAREN               : 40 59 84 95 101 103 107 113 130 131 132 133 134 135 136 137 138 139 140 141
+SEMICOLON            : 1 5 6 57 83 84 101 107 130 131 132 133 134 135 136 137 138 139 140 141
+SI_DIBUJA            : 136
+START                : 130
 STRING               : 71
 TIMES                : 36
 TRUE                 : 55
@@ -220,7 +223,7 @@ condition_point2     : 95
 else                 : 95
 else_point           : 98
 empty                : 7 9 20 60 64 66 75 90 99 120 122
-exp                  : 21 22 22 23 23 24 24 25 25 26 26 27 27 31 32 89 130 131 132 135 135 136 137
+exp                  : 21 22 22 23 23 24 24 25 25 26 26 27 27 31 32 89 133 134 135 138 138 139 140
 exp_point            : 30 31 32
 exp_point2           : 31 32
 expression           : 14 15 16
@@ -270,7 +273,10 @@ return               : 82
 return_point         : 57
 statement            : 74
 statements           : 73 74
-string_var           : 138
+string_var           : 141
+string_var_point     : 124
+string_var_point2    : 124
+string_var_point3    : 125
 term                 : 30 31 32 36 37
 term_point           : 35 36 37
 term_point2          : 36 37
@@ -344,11 +350,11 @@ state 6
     (5) vars -> . VAR ID vars_aux COLON type vars_point SEMICOLON vars
     (6) vars -> . VAR ID list_declaration COLON type vars_point2 SEMICOLON vars
     (7) vars -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     VAR             shift and go to state 8
-    FUNC            reduce using rule 126 (empty -> .)
-    MAIN            reduce using rule 126 (empty -> .)
+    FUNC            reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 7
     empty                          shift and go to state 9
@@ -358,10 +364,10 @@ state 7
     (1) program -> PROGRAM ID program_point program_point2 SEMICOLON vars . functions MAIN program_point3 block
     (59) functions -> . FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 functions
     (60) functions -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     FUNC            shift and go to state 11
-    MAIN            reduce using rule 126 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
 
     functions                      shift and go to state 10
     empty                          shift and go to state 12
@@ -440,11 +446,11 @@ state 13
     (8) vars_aux -> . COMMA ID vars_aux
     (9) vars_aux -> . empty
     (10) list_declaration -> . LBRACKET var_const RBRACKET list_declaration_point
-    (126) empty -> .
+    (129) empty -> .
 
     COMMA           shift and go to state 24
     LBRACKET        shift and go to state 26
-    COLON           reduce using rule 126 (empty -> .)
+    COLON           reduce using rule 129 (empty -> .)
 
     vars_aux                       shift and go to state 22
     list_declaration               shift and go to state 23
@@ -615,10 +621,10 @@ state 31
     (8) vars_aux -> COMMA ID . vars_aux
     (8) vars_aux -> . COMMA ID vars_aux
     (9) vars_aux -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     COMMA           shift and go to state 24
-    COLON           reduce using rule 126 (empty -> .)
+    COLON           reduce using rule 129 (empty -> .)
 
     vars_aux                       shift and go to state 46
     empty                          shift and go to state 25
@@ -834,27 +840,27 @@ state 42
     (5) vars -> . VAR ID vars_aux COLON type vars_point SEMICOLON vars
     (6) vars -> . VAR ID list_declaration COLON type vars_point2 SEMICOLON vars
     (7) vars -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     VAR             shift and go to state 8
-    ID              reduce using rule 126 (empty -> .)
-    IF              reduce using rule 126 (empty -> .)
-    PRINT           reduce using rule 126 (empty -> .)
-    WHILE           reduce using rule 126 (empty -> .)
-    START           reduce using rule 126 (empty -> .)
-    RESET           reduce using rule 126 (empty -> .)
-    END             reduce using rule 126 (empty -> .)
-    GIRA_IZQ        reduce using rule 126 (empty -> .)
-    GIRA_DER        reduce using rule 126 (empty -> .)
-    CAMINA          reduce using rule 126 (empty -> .)
-    SI_DIBUJA       reduce using rule 126 (empty -> .)
-    NO_DIBUJA       reduce using rule 126 (empty -> .)
-    DIBUJA_POLIGONO reduce using rule 126 (empty -> .)
-    DIBUJA_CIRCULO  reduce using rule 126 (empty -> .)
-    DIBUJA_ESTRELLA reduce using rule 126 (empty -> .)
-    COLOR_PLUMA     reduce using rule 126 (empty -> .)
-    RETURN          reduce using rule 126 (empty -> .)
-    RBRACE          reduce using rule 126 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    IF              reduce using rule 129 (empty -> .)
+    PRINT           reduce using rule 129 (empty -> .)
+    WHILE           reduce using rule 129 (empty -> .)
+    START           reduce using rule 129 (empty -> .)
+    RESET           reduce using rule 129 (empty -> .)
+    END             reduce using rule 129 (empty -> .)
+    GIRA_IZQ        reduce using rule 129 (empty -> .)
+    GIRA_DER        reduce using rule 129 (empty -> .)
+    CAMINA          reduce using rule 129 (empty -> .)
+    SI_DIBUJA       reduce using rule 129 (empty -> .)
+    NO_DIBUJA       reduce using rule 129 (empty -> .)
+    DIBUJA_POLIGONO reduce using rule 129 (empty -> .)
+    DIBUJA_CIRCULO  reduce using rule 129 (empty -> .)
+    DIBUJA_ESTRELLA reduce using rule 129 (empty -> .)
+    COLOR_PLUMA     reduce using rule 129 (empty -> .)
+    RETURN          reduce using rule 129 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
 
     statements                     shift and go to state 54
     vars                           shift and go to state 55
@@ -869,13 +875,13 @@ state 43
     (70) type -> . FLOAT
     (71) type -> . STRING
     (72) type -> . BOOLEAN
-    (126) empty -> .
+    (129) empty -> .
 
     INT             shift and go to state 18
     FLOAT           shift and go to state 19
     STRING          shift and go to state 20
     BOOLEAN         shift and go to state 21
-    RPAREN          reduce using rule 126 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
 
     params                         shift and go to state 56
     type                           shift and go to state 57
@@ -920,25 +926,25 @@ state 48
     (44) var_const -> ID var_const_point . list_call
     (89) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
     (90) list_call -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     LBRACKET        shift and go to state 63
-    RBRACKET        reduce using rule 126 (empty -> .)
-    TIMES           reduce using rule 126 (empty -> .)
-    DIVIDES         reduce using rule 126 (empty -> .)
-    PLUS            reduce using rule 126 (empty -> .)
-    MINUS           reduce using rule 126 (empty -> .)
-    RPAREN          reduce using rule 126 (empty -> .)
-    COMMA           reduce using rule 126 (empty -> .)
-    GREATER_THAN    reduce using rule 126 (empty -> .)
-    LESS_THAN       reduce using rule 126 (empty -> .)
-    GREATER_OR_EQUAL_THAN reduce using rule 126 (empty -> .)
-    LESS_OR_EQUAL_THAN reduce using rule 126 (empty -> .)
-    EQUAL_THAN      reduce using rule 126 (empty -> .)
-    NOT_EQUAL_THAN  reduce using rule 126 (empty -> .)
-    AND             reduce using rule 126 (empty -> .)
-    OR              reduce using rule 126 (empty -> .)
-    SEMICOLON       reduce using rule 126 (empty -> .)
+    RBRACKET        reduce using rule 129 (empty -> .)
+    TIMES           reduce using rule 129 (empty -> .)
+    DIVIDES         reduce using rule 129 (empty -> .)
+    PLUS            reduce using rule 129 (empty -> .)
+    MINUS           reduce using rule 129 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
+    COMMA           reduce using rule 129 (empty -> .)
+    GREATER_THAN    reduce using rule 129 (empty -> .)
+    LESS_THAN       reduce using rule 129 (empty -> .)
+    GREATER_OR_EQUAL_THAN reduce using rule 129 (empty -> .)
+    LESS_OR_EQUAL_THAN reduce using rule 129 (empty -> .)
+    EQUAL_THAN      reduce using rule 129 (empty -> .)
+    NOT_EQUAL_THAN  reduce using rule 129 (empty -> .)
+    AND             reduce using rule 129 (empty -> .)
+    OR              reduce using rule 129 (empty -> .)
+    SEMICOLON       reduce using rule 129 (empty -> .)
 
     list_call                      shift and go to state 62
     empty                          shift and go to state 64
@@ -1066,28 +1072,28 @@ state 55
     (80) statement -> . method
     (81) statement -> . predefined_method
     (82) statement -> . return
-    (126) empty -> .
+    (129) empty -> .
     (83) assignment -> . ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4
     (84) assignment -> . ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
     (95) condition -> . IF LPAREN expression_log RPAREN condition_point block else condition_point2
     (101) write -> . PRINT LPAREN expression_log write_point RPAREN SEMICOLON
     (103) loop -> . WHILE loop_point LPAREN expression_log RPAREN loop_point2 block loop_point3
     (107) method -> . ID LPAREN method_point method_point2 args RPAREN method_point3 method_point4 method_point5 SEMICOLON
-    (127) predefined_method -> . START LPAREN RPAREN SEMICOLON
-    (128) predefined_method -> . RESET LPAREN RPAREN SEMICOLON
-    (129) predefined_method -> . END LPAREN RPAREN SEMICOLON
-    (130) predefined_method -> . GIRA_IZQ LPAREN exp RPAREN SEMICOLON
-    (131) predefined_method -> . GIRA_DER LPAREN exp RPAREN SEMICOLON
-    (132) predefined_method -> . CAMINA LPAREN exp RPAREN SEMICOLON
-    (133) predefined_method -> . SI_DIBUJA LPAREN RPAREN SEMICOLON
-    (134) predefined_method -> . NO_DIBUJA LPAREN RPAREN SEMICOLON
-    (135) predefined_method -> . DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON
-    (136) predefined_method -> . DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON
-    (137) predefined_method -> . DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON
-    (138) predefined_method -> . COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON
+    (130) predefined_method -> . START LPAREN RPAREN SEMICOLON
+    (131) predefined_method -> . RESET LPAREN RPAREN SEMICOLON
+    (132) predefined_method -> . END LPAREN RPAREN SEMICOLON
+    (133) predefined_method -> . GIRA_IZQ LPAREN exp RPAREN SEMICOLON
+    (134) predefined_method -> . GIRA_DER LPAREN exp RPAREN SEMICOLON
+    (135) predefined_method -> . CAMINA LPAREN exp RPAREN SEMICOLON
+    (136) predefined_method -> . SI_DIBUJA LPAREN RPAREN SEMICOLON
+    (137) predefined_method -> . NO_DIBUJA LPAREN RPAREN SEMICOLON
+    (138) predefined_method -> . DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON
+    (139) predefined_method -> . DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON
+    (140) predefined_method -> . DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON
+    (141) predefined_method -> . COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON
     (57) return -> . RETURN expression_log SEMICOLON return_point
 
-    RBRACE          reduce using rule 126 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
     ID              shift and go to state 76
     IF              shift and go to state 77
     PRINT           shift and go to state 78
@@ -1272,27 +1278,27 @@ state 67
     (5) vars -> . VAR ID vars_aux COLON type vars_point SEMICOLON vars
     (6) vars -> . VAR ID list_declaration COLON type vars_point2 SEMICOLON vars
     (7) vars -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     VAR             shift and go to state 8
-    ID              reduce using rule 126 (empty -> .)
-    IF              reduce using rule 126 (empty -> .)
-    PRINT           reduce using rule 126 (empty -> .)
-    WHILE           reduce using rule 126 (empty -> .)
-    START           reduce using rule 126 (empty -> .)
-    RESET           reduce using rule 126 (empty -> .)
-    END             reduce using rule 126 (empty -> .)
-    GIRA_IZQ        reduce using rule 126 (empty -> .)
-    GIRA_DER        reduce using rule 126 (empty -> .)
-    CAMINA          reduce using rule 126 (empty -> .)
-    SI_DIBUJA       reduce using rule 126 (empty -> .)
-    NO_DIBUJA       reduce using rule 126 (empty -> .)
-    DIBUJA_POLIGONO reduce using rule 126 (empty -> .)
-    DIBUJA_CIRCULO  reduce using rule 126 (empty -> .)
-    DIBUJA_ESTRELLA reduce using rule 126 (empty -> .)
-    COLOR_PLUMA     reduce using rule 126 (empty -> .)
-    RETURN          reduce using rule 126 (empty -> .)
-    RBRACE          reduce using rule 126 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    IF              reduce using rule 129 (empty -> .)
+    PRINT           reduce using rule 129 (empty -> .)
+    WHILE           reduce using rule 129 (empty -> .)
+    START           reduce using rule 129 (empty -> .)
+    RESET           reduce using rule 129 (empty -> .)
+    END             reduce using rule 129 (empty -> .)
+    GIRA_IZQ        reduce using rule 129 (empty -> .)
+    GIRA_DER        reduce using rule 129 (empty -> .)
+    CAMINA          reduce using rule 129 (empty -> .)
+    SI_DIBUJA       reduce using rule 129 (empty -> .)
+    NO_DIBUJA       reduce using rule 129 (empty -> .)
+    DIBUJA_POLIGONO reduce using rule 129 (empty -> .)
+    DIBUJA_CIRCULO  reduce using rule 129 (empty -> .)
+    DIBUJA_ESTRELLA reduce using rule 129 (empty -> .)
+    COLOR_PLUMA     reduce using rule 129 (empty -> .)
+    RETURN          reduce using rule 129 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 55
     statements                     shift and go to state 99
@@ -1518,84 +1524,84 @@ state 79
 
 state 80
 
-    (127) predefined_method -> START . LPAREN RPAREN SEMICOLON
+    (130) predefined_method -> START . LPAREN RPAREN SEMICOLON
 
     LPAREN          shift and go to state 105
 
 
 state 81
 
-    (128) predefined_method -> RESET . LPAREN RPAREN SEMICOLON
+    (131) predefined_method -> RESET . LPAREN RPAREN SEMICOLON
 
     LPAREN          shift and go to state 106
 
 
 state 82
 
-    (129) predefined_method -> END . LPAREN RPAREN SEMICOLON
+    (132) predefined_method -> END . LPAREN RPAREN SEMICOLON
 
     LPAREN          shift and go to state 107
 
 
 state 83
 
-    (130) predefined_method -> GIRA_IZQ . LPAREN exp RPAREN SEMICOLON
+    (133) predefined_method -> GIRA_IZQ . LPAREN exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 108
 
 
 state 84
 
-    (131) predefined_method -> GIRA_DER . LPAREN exp RPAREN SEMICOLON
+    (134) predefined_method -> GIRA_DER . LPAREN exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 109
 
 
 state 85
 
-    (132) predefined_method -> CAMINA . LPAREN exp RPAREN SEMICOLON
+    (135) predefined_method -> CAMINA . LPAREN exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 110
 
 
 state 86
 
-    (133) predefined_method -> SI_DIBUJA . LPAREN RPAREN SEMICOLON
+    (136) predefined_method -> SI_DIBUJA . LPAREN RPAREN SEMICOLON
 
     LPAREN          shift and go to state 111
 
 
 state 87
 
-    (134) predefined_method -> NO_DIBUJA . LPAREN RPAREN SEMICOLON
+    (137) predefined_method -> NO_DIBUJA . LPAREN RPAREN SEMICOLON
 
     LPAREN          shift and go to state 112
 
 
 state 88
 
-    (135) predefined_method -> DIBUJA_POLIGONO . LPAREN exp COMMA exp RPAREN SEMICOLON
+    (138) predefined_method -> DIBUJA_POLIGONO . LPAREN exp COMMA exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 113
 
 
 state 89
 
-    (136) predefined_method -> DIBUJA_CIRCULO . LPAREN exp RPAREN SEMICOLON
+    (139) predefined_method -> DIBUJA_CIRCULO . LPAREN exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 114
 
 
 state 90
 
-    (137) predefined_method -> DIBUJA_ESTRELLA . LPAREN exp RPAREN SEMICOLON
+    (140) predefined_method -> DIBUJA_ESTRELLA . LPAREN exp RPAREN SEMICOLON
 
     LPAREN          shift and go to state 115
 
 
 state 91
 
-    (138) predefined_method -> COLOR_PLUMA . LPAREN string_var RPAREN SEMICOLON
+    (141) predefined_method -> COLOR_PLUMA . LPAREN string_var RPAREN SEMICOLON
 
     LPAREN          shift and go to state 116
 
@@ -1608,16 +1614,16 @@ state 92
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     expression_log                 shift and go to state 117
     not                            shift and go to state 118
@@ -1637,10 +1643,10 @@ state 94
     (63) params -> type ID . params_aux
     (65) params_aux -> . COMMA type ID params_aux
     (66) params_aux -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     COMMA           shift and go to state 123
-    RPAREN          reduce using rule 126 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
 
     params_aux                     shift and go to state 122
     empty                          shift and go to state 124
@@ -1651,29 +1657,29 @@ state 95
     (5) vars -> . VAR ID vars_aux COLON type vars_point SEMICOLON vars
     (6) vars -> . VAR ID list_declaration COLON type vars_point2 SEMICOLON vars
     (7) vars -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     VAR             shift and go to state 8
-    FUNC            reduce using rule 126 (empty -> .)
-    MAIN            reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    IF              reduce using rule 126 (empty -> .)
-    PRINT           reduce using rule 126 (empty -> .)
-    WHILE           reduce using rule 126 (empty -> .)
-    START           reduce using rule 126 (empty -> .)
-    RESET           reduce using rule 126 (empty -> .)
-    END             reduce using rule 126 (empty -> .)
-    GIRA_IZQ        reduce using rule 126 (empty -> .)
-    GIRA_DER        reduce using rule 126 (empty -> .)
-    CAMINA          reduce using rule 126 (empty -> .)
-    SI_DIBUJA       reduce using rule 126 (empty -> .)
-    NO_DIBUJA       reduce using rule 126 (empty -> .)
-    DIBUJA_POLIGONO reduce using rule 126 (empty -> .)
-    DIBUJA_CIRCULO  reduce using rule 126 (empty -> .)
-    DIBUJA_ESTRELLA reduce using rule 126 (empty -> .)
-    COLOR_PLUMA     reduce using rule 126 (empty -> .)
-    RETURN          reduce using rule 126 (empty -> .)
-    RBRACE          reduce using rule 126 (empty -> .)
+    FUNC            reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    IF              reduce using rule 129 (empty -> .)
+    PRINT           reduce using rule 129 (empty -> .)
+    WHILE           reduce using rule 129 (empty -> .)
+    START           reduce using rule 129 (empty -> .)
+    RESET           reduce using rule 129 (empty -> .)
+    END             reduce using rule 129 (empty -> .)
+    GIRA_IZQ        reduce using rule 129 (empty -> .)
+    GIRA_DER        reduce using rule 129 (empty -> .)
+    CAMINA          reduce using rule 129 (empty -> .)
+    SI_DIBUJA       reduce using rule 129 (empty -> .)
+    NO_DIBUJA       reduce using rule 129 (empty -> .)
+    DIBUJA_POLIGONO reduce using rule 129 (empty -> .)
+    DIBUJA_CIRCULO  reduce using rule 129 (empty -> .)
+    DIBUJA_ESTRELLA reduce using rule 129 (empty -> .)
+    COLOR_PLUMA     reduce using rule 129 (empty -> .)
+    RETURN          reduce using rule 129 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 125
     empty                          shift and go to state 9
@@ -1684,29 +1690,29 @@ state 96
     (5) vars -> . VAR ID vars_aux COLON type vars_point SEMICOLON vars
     (6) vars -> . VAR ID list_declaration COLON type vars_point2 SEMICOLON vars
     (7) vars -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     VAR             shift and go to state 8
-    FUNC            reduce using rule 126 (empty -> .)
-    MAIN            reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    IF              reduce using rule 126 (empty -> .)
-    PRINT           reduce using rule 126 (empty -> .)
-    WHILE           reduce using rule 126 (empty -> .)
-    START           reduce using rule 126 (empty -> .)
-    RESET           reduce using rule 126 (empty -> .)
-    END             reduce using rule 126 (empty -> .)
-    GIRA_IZQ        reduce using rule 126 (empty -> .)
-    GIRA_DER        reduce using rule 126 (empty -> .)
-    CAMINA          reduce using rule 126 (empty -> .)
-    SI_DIBUJA       reduce using rule 126 (empty -> .)
-    NO_DIBUJA       reduce using rule 126 (empty -> .)
-    DIBUJA_POLIGONO reduce using rule 126 (empty -> .)
-    DIBUJA_CIRCULO  reduce using rule 126 (empty -> .)
-    DIBUJA_ESTRELLA reduce using rule 126 (empty -> .)
-    COLOR_PLUMA     reduce using rule 126 (empty -> .)
-    RETURN          reduce using rule 126 (empty -> .)
-    RBRACE          reduce using rule 126 (empty -> .)
+    FUNC            reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    IF              reduce using rule 129 (empty -> .)
+    PRINT           reduce using rule 129 (empty -> .)
+    WHILE           reduce using rule 129 (empty -> .)
+    START           reduce using rule 129 (empty -> .)
+    RESET           reduce using rule 129 (empty -> .)
+    END             reduce using rule 129 (empty -> .)
+    GIRA_IZQ        reduce using rule 129 (empty -> .)
+    GIRA_DER        reduce using rule 129 (empty -> .)
+    CAMINA          reduce using rule 129 (empty -> .)
+    SI_DIBUJA       reduce using rule 129 (empty -> .)
+    NO_DIBUJA       reduce using rule 129 (empty -> .)
+    DIBUJA_POLIGONO reduce using rule 129 (empty -> .)
+    DIBUJA_CIRCULO  reduce using rule 129 (empty -> .)
+    DIBUJA_ESTRELLA reduce using rule 129 (empty -> .)
+    COLOR_PLUMA     reduce using rule 129 (empty -> .)
+    RETURN          reduce using rule 129 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 126
     empty                          shift and go to state 9
@@ -1734,18 +1740,18 @@ state 98
     (14) expression_log -> . not expression expression_log_point
     (15) expression_log -> . not expression expression_log_point AND expression_log_point2 expression_log
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
-    (126) empty -> .
+    (129) empty -> .
     (19) not -> . NOT
     (20) not -> . empty
 
-    RPAREN          reduce using rule 126 (empty -> .)
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
     NOT             shift and go to state 119
 
     args                           shift and go to state 128
@@ -1766,10 +1772,10 @@ state 100
     (84) assignment -> ID assignment_point . list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
     (89) list_call -> . LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET
     (90) list_call -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     LBRACKET        shift and go to state 63
-    ASSIGN          reduce using rule 126 (empty -> .)
+    ASSIGN          reduce using rule 129 (empty -> .)
 
     list_call                      shift and go to state 131
     empty                          shift and go to state 64
@@ -1799,16 +1805,16 @@ state 102
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     expression_log                 shift and go to state 133
     not                            shift and go to state 118
@@ -1822,16 +1828,16 @@ state 103
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     expression_log                 shift and go to state 134
     not                            shift and go to state 118
@@ -1846,28 +1852,28 @@ state 104
 
 state 105
 
-    (127) predefined_method -> START LPAREN . RPAREN SEMICOLON
+    (130) predefined_method -> START LPAREN . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 136
 
 
 state 106
 
-    (128) predefined_method -> RESET LPAREN . RPAREN SEMICOLON
+    (131) predefined_method -> RESET LPAREN . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 137
 
 
 state 107
 
-    (129) predefined_method -> END LPAREN . RPAREN SEMICOLON
+    (132) predefined_method -> END LPAREN . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 138
 
 
 state 108
 
-    (130) predefined_method -> GIRA_IZQ LPAREN . exp RPAREN SEMICOLON
+    (133) predefined_method -> GIRA_IZQ LPAREN . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -1903,7 +1909,7 @@ state 108
 
 state 109
 
-    (131) predefined_method -> GIRA_DER LPAREN . exp RPAREN SEMICOLON
+    (134) predefined_method -> GIRA_DER LPAREN . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -1939,7 +1945,7 @@ state 109
 
 state 110
 
-    (132) predefined_method -> CAMINA LPAREN . exp RPAREN SEMICOLON
+    (135) predefined_method -> CAMINA LPAREN . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -1975,21 +1981,21 @@ state 110
 
 state 111
 
-    (133) predefined_method -> SI_DIBUJA LPAREN . RPAREN SEMICOLON
+    (136) predefined_method -> SI_DIBUJA LPAREN . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 146
 
 
 state 112
 
-    (134) predefined_method -> NO_DIBUJA LPAREN . RPAREN SEMICOLON
+    (137) predefined_method -> NO_DIBUJA LPAREN . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 147
 
 
 state 113
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN . exp COMMA exp RPAREN SEMICOLON
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN . exp COMMA exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -2025,7 +2031,7 @@ state 113
 
 state 114
 
-    (136) predefined_method -> DIBUJA_CIRCULO LPAREN . exp RPAREN SEMICOLON
+    (139) predefined_method -> DIBUJA_CIRCULO LPAREN . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -2061,7 +2067,7 @@ state 114
 
 state 115
 
-    (137) predefined_method -> DIBUJA_ESTRELLA LPAREN . exp RPAREN SEMICOLON
+    (140) predefined_method -> DIBUJA_ESTRELLA LPAREN . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -2097,9 +2103,9 @@ state 115
 
 state 116
 
-    (138) predefined_method -> COLOR_PLUMA LPAREN . string_var RPAREN SEMICOLON
-    (124) string_var -> . ID
-    (125) string_var -> . CONST_STRING
+    (141) predefined_method -> COLOR_PLUMA LPAREN . string_var RPAREN SEMICOLON
+    (124) string_var -> . ID string_var_point string_var_point2
+    (125) string_var -> . CONST_STRING string_var_point3
 
     ID              shift and go to state 152
     CONST_STRING    shift and go to state 153
@@ -2392,16 +2398,16 @@ state 135
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     expression_log                 shift and go to state 166
     not                            shift and go to state 118
@@ -2409,21 +2415,21 @@ state 135
 
 state 136
 
-    (127) predefined_method -> START LPAREN RPAREN . SEMICOLON
+    (130) predefined_method -> START LPAREN RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 167
 
 
 state 137
 
-    (128) predefined_method -> RESET LPAREN RPAREN . SEMICOLON
+    (131) predefined_method -> RESET LPAREN RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 168
 
 
 state 138
 
-    (129) predefined_method -> END LPAREN RPAREN . SEMICOLON
+    (132) predefined_method -> END LPAREN RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 169
 
@@ -2446,7 +2452,7 @@ state 139
 
 state 140
 
-    (130) predefined_method -> GIRA_IZQ LPAREN exp . RPAREN SEMICOLON
+    (133) predefined_method -> GIRA_IZQ LPAREN exp . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 171
 
@@ -2525,73 +2531,77 @@ state 143
 
 state 144
 
-    (131) predefined_method -> GIRA_DER LPAREN exp . RPAREN SEMICOLON
+    (134) predefined_method -> GIRA_DER LPAREN exp . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 174
 
 
 state 145
 
-    (132) predefined_method -> CAMINA LPAREN exp . RPAREN SEMICOLON
+    (135) predefined_method -> CAMINA LPAREN exp . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 175
 
 
 state 146
 
-    (133) predefined_method -> SI_DIBUJA LPAREN RPAREN . SEMICOLON
+    (136) predefined_method -> SI_DIBUJA LPAREN RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 176
 
 
 state 147
 
-    (134) predefined_method -> NO_DIBUJA LPAREN RPAREN . SEMICOLON
+    (137) predefined_method -> NO_DIBUJA LPAREN RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 177
 
 
 state 148
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN exp . COMMA exp RPAREN SEMICOLON
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN exp . COMMA exp RPAREN SEMICOLON
 
     COMMA           shift and go to state 178
 
 
 state 149
 
-    (136) predefined_method -> DIBUJA_CIRCULO LPAREN exp . RPAREN SEMICOLON
+    (139) predefined_method -> DIBUJA_CIRCULO LPAREN exp . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 179
 
 
 state 150
 
-    (137) predefined_method -> DIBUJA_ESTRELLA LPAREN exp . RPAREN SEMICOLON
+    (140) predefined_method -> DIBUJA_ESTRELLA LPAREN exp . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 180
 
 
 state 151
 
-    (138) predefined_method -> COLOR_PLUMA LPAREN string_var . RPAREN SEMICOLON
+    (141) predefined_method -> COLOR_PLUMA LPAREN string_var . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 181
 
 
 state 152
 
-    (124) string_var -> ID .
+    (124) string_var -> ID . string_var_point string_var_point2
+    (126) string_var_point -> .
 
-    RPAREN          reduce using rule 124 (string_var -> ID .)
+    RPAREN          reduce using rule 126 (string_var_point -> .)
 
+    string_var_point               shift and go to state 182
 
 state 153
 
-    (125) string_var -> CONST_STRING .
+    (125) string_var -> CONST_STRING . string_var_point3
+    (128) string_var_point3 -> .
 
-    RPAREN          reduce using rule 125 (string_var -> CONST_STRING .)
+    RPAREN          reduce using rule 128 (string_var_point3 -> .)
 
+    string_var_point3              shift and go to state 183
 
 state 154
 
@@ -2618,7 +2628,7 @@ state 154
     RETURN          reduce using rule 58 (return_point -> .)
     RBRACE          reduce using rule 58 (return_point -> .)
 
-    return_point                   shift and go to state 182
+    return_point                   shift and go to state 184
 
 state 155
 
@@ -2633,7 +2643,7 @@ state 155
     COMMA           reduce using rule 17 (expression_log_point -> .)
     RPAREN          reduce using rule 17 (expression_log_point -> .)
 
-    expression_log_point           shift and go to state 183
+    expression_log_point           shift and go to state 185
 
 state 156
 
@@ -2646,19 +2656,19 @@ state 156
     (27) expression -> exp . NOT_EQUAL_THAN expression_point exp expression_point2
     (29) expression_point2 -> .
 
-    GREATER_THAN    shift and go to state 185
-    LESS_THAN       shift and go to state 186
-    GREATER_OR_EQUAL_THAN shift and go to state 187
-    LESS_OR_EQUAL_THAN shift and go to state 188
-    EQUAL_THAN      shift and go to state 189
-    NOT_EQUAL_THAN  shift and go to state 190
+    GREATER_THAN    shift and go to state 187
+    LESS_THAN       shift and go to state 188
+    GREATER_OR_EQUAL_THAN shift and go to state 189
+    LESS_OR_EQUAL_THAN shift and go to state 190
+    EQUAL_THAN      shift and go to state 191
+    NOT_EQUAL_THAN  shift and go to state 192
     AND             reduce using rule 29 (expression_point2 -> .)
     OR              reduce using rule 29 (expression_point2 -> .)
     SEMICOLON       reduce using rule 29 (expression_point2 -> .)
     COMMA           reduce using rule 29 (expression_point2 -> .)
     RPAREN          reduce using rule 29 (expression_point2 -> .)
 
-    expression_point2              shift and go to state 184
+    expression_point2              shift and go to state 186
 
 state 157
 
@@ -2668,13 +2678,13 @@ state 157
     FUNC            reduce using rule 68 (functions_point2 -> .)
     MAIN            reduce using rule 68 (functions_point2 -> .)
 
-    functions_point2               shift and go to state 191
+    functions_point2               shift and go to state 193
 
 state 158
 
     (65) params_aux -> COMMA type . ID params_aux
 
-    ID              shift and go to state 192
+    ID              shift and go to state 194
 
 
 state 159
@@ -2684,7 +2694,7 @@ state 159
 
     RBRACKET        reduce using rule 93 (list_point3 -> .)
 
-    list_point3                    shift and go to state 193
+    list_point3                    shift and go to state 195
 
 state 160
 
@@ -2708,20 +2718,20 @@ state 160
     OR              reduce using rule 116 (function_point3 -> .)
     SEMICOLON       reduce using rule 116 (function_point3 -> .)
 
-    function_point3                shift and go to state 194
+    function_point3                shift and go to state 196
 
 state 161
 
     (119) args -> expression_log args_point . args_aux
     (121) args_aux -> . COMMA expression_log args_point args_aux
     (122) args_aux -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
-    COMMA           shift and go to state 196
-    RPAREN          reduce using rule 126 (empty -> .)
+    COMMA           shift and go to state 198
+    RPAREN          reduce using rule 129 (empty -> .)
 
-    args_aux                       shift and go to state 195
-    empty                          shift and go to state 197
+    args_aux                       shift and go to state 197
+    empty                          shift and go to state 199
 
 state 162
 
@@ -2739,7 +2749,7 @@ state 162
     TRUE            reduce using rule 86 (assignment_point2 -> .)
     FALSE           reduce using rule 86 (assignment_point2 -> .)
 
-    assignment_point2              shift and go to state 198
+    assignment_point2              shift and go to state 200
 
 state 163
 
@@ -2749,21 +2759,21 @@ state 163
     (14) expression_log -> . not expression expression_log_point
     (15) expression_log -> . not expression expression_log_point AND expression_log_point2 expression_log
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
-    (126) empty -> .
+    (129) empty -> .
     (19) not -> . NOT
     (20) not -> . empty
 
-    RPAREN          reduce using rule 126 (empty -> .)
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
     NOT             shift and go to state 119
 
-    args                           shift and go to state 199
+    args                           shift and go to state 201
     expression_log                 shift and go to state 129
     empty                          shift and go to state 130
     not                            shift and go to state 118
@@ -2775,95 +2785,95 @@ state 164
 
     LBRACE          reduce using rule 96 (condition_point -> .)
 
-    condition_point                shift and go to state 200
+    condition_point                shift and go to state 202
 
 state 165
 
     (101) write -> PRINT LPAREN expression_log write_point . RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 201
+    RPAREN          shift and go to state 203
 
 
 state 166
 
     (103) loop -> WHILE loop_point LPAREN expression_log . RPAREN loop_point2 block loop_point3
 
-    RPAREN          shift and go to state 202
+    RPAREN          shift and go to state 204
 
 
 state 167
 
-    (127) predefined_method -> START LPAREN RPAREN SEMICOLON .
+    (130) predefined_method -> START LPAREN RPAREN SEMICOLON .
 
-    VAR             reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    ID              reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    IF              reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    PRINT           reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    WHILE           reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    START           reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    RESET           reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    END             reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    RETURN          reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 127 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    START           reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    RESET           reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    END             reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    RETURN          reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 130 (predefined_method -> START LPAREN RPAREN SEMICOLON .)
 
 
 state 168
 
-    (128) predefined_method -> RESET LPAREN RPAREN SEMICOLON .
+    (131) predefined_method -> RESET LPAREN RPAREN SEMICOLON .
 
-    VAR             reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    ID              reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    IF              reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    PRINT           reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    WHILE           reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    START           reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    RESET           reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    END             reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    RETURN          reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 128 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    START           reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    RESET           reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    END             reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    RETURN          reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 131 (predefined_method -> RESET LPAREN RPAREN SEMICOLON .)
 
 
 state 169
 
-    (129) predefined_method -> END LPAREN RPAREN SEMICOLON .
+    (132) predefined_method -> END LPAREN RPAREN SEMICOLON .
 
-    VAR             reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    ID              reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    IF              reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    PRINT           reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    WHILE           reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    START           reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    RESET           reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    END             reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    RETURN          reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 129 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    START           reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    RESET           reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    END             reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    RETURN          reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 132 (predefined_method -> END LPAREN RPAREN SEMICOLON .)
 
 
 state 170
@@ -2874,26 +2884,26 @@ state 170
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
-    expression_log                 shift and go to state 203
+    expression_log                 shift and go to state 205
     not                            shift and go to state 118
     empty                          shift and go to state 120
 
 state 171
 
-    (130) predefined_method -> GIRA_IZQ LPAREN exp RPAREN . SEMICOLON
+    (133) predefined_method -> GIRA_IZQ LPAREN exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 204
+    SEMICOLON       shift and go to state 206
 
 
 state 172
@@ -2914,8 +2924,8 @@ state 172
     OR              reduce using rule 30 (exp -> term exp_point .)
     SEMICOLON       reduce using rule 30 (exp -> term exp_point .)
     RBRACKET        reduce using rule 30 (exp -> term exp_point .)
-    PLUS            shift and go to state 205
-    MINUS           shift and go to state 206
+    PLUS            shift and go to state 207
+    MINUS           shift and go to state 208
 
 
 state 173
@@ -2938,77 +2948,77 @@ state 173
     OR              reduce using rule 35 (term -> factor term_point .)
     SEMICOLON       reduce using rule 35 (term -> factor term_point .)
     RBRACKET        reduce using rule 35 (term -> factor term_point .)
-    TIMES           shift and go to state 207
-    DIVIDES         shift and go to state 208
+    TIMES           shift and go to state 209
+    DIVIDES         shift and go to state 210
 
 
 state 174
 
-    (131) predefined_method -> GIRA_DER LPAREN exp RPAREN . SEMICOLON
+    (134) predefined_method -> GIRA_DER LPAREN exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 209
+    SEMICOLON       shift and go to state 211
 
 
 state 175
 
-    (132) predefined_method -> CAMINA LPAREN exp RPAREN . SEMICOLON
+    (135) predefined_method -> CAMINA LPAREN exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 210
+    SEMICOLON       shift and go to state 212
 
 
 state 176
 
-    (133) predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .
+    (136) predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .
 
-    VAR             reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    ID              reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    IF              reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    PRINT           reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    WHILE           reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    START           reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RESET           reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    END             reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RETURN          reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 133 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    START           reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RESET           reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    END             reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RETURN          reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 136 (predefined_method -> SI_DIBUJA LPAREN RPAREN SEMICOLON .)
 
 
 state 177
 
-    (134) predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .
+    (137) predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .
 
-    VAR             reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    ID              reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    IF              reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    PRINT           reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    WHILE           reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    START           reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RESET           reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    END             reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RETURN          reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 134 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    START           reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RESET           reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    END             reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RETURN          reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 137 (predefined_method -> NO_DIBUJA LPAREN RPAREN SEMICOLON .)
 
 
 state 178
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA . exp RPAREN SEMICOLON
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA . exp RPAREN SEMICOLON
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -3035,7 +3045,7 @@ state 178
     TRUE            shift and go to state 39
     FALSE           shift and go to state 40
 
-    exp                            shift and go to state 211
+    exp                            shift and go to state 213
     term                           shift and go to state 141
     factor                         shift and go to state 142
     var_const                      shift and go to state 143
@@ -3044,26 +3054,42 @@ state 178
 
 state 179
 
-    (136) predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN . SEMICOLON
-
-    SEMICOLON       shift and go to state 212
-
-
-state 180
-
-    (137) predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN . SEMICOLON
-
-    SEMICOLON       shift and go to state 213
-
-
-state 181
-
-    (138) predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN . SEMICOLON
+    (139) predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 214
 
 
+state 180
+
+    (140) predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 215
+
+
+state 181
+
+    (141) predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 216
+
+
 state 182
+
+    (124) string_var -> ID string_var_point . string_var_point2
+    (127) string_var_point2 -> .
+
+    RPAREN          reduce using rule 127 (string_var_point2 -> .)
+
+    string_var_point2              shift and go to state 217
+
+state 183
+
+    (125) string_var -> CONST_STRING string_var_point3 .
+
+    RPAREN          reduce using rule 125 (string_var -> CONST_STRING string_var_point3 .)
+
+
+state 184
 
     (57) return -> RETURN expression_log SEMICOLON return_point .
 
@@ -3088,7 +3114,7 @@ state 182
     RBRACE          reduce using rule 57 (return -> RETURN expression_log SEMICOLON return_point .)
 
 
-state 183
+state 185
 
     (14) expression_log -> not expression expression_log_point .
     (15) expression_log -> not expression expression_log_point . AND expression_log_point2 expression_log
@@ -3097,11 +3123,11 @@ state 183
     SEMICOLON       reduce using rule 14 (expression_log -> not expression expression_log_point .)
     COMMA           reduce using rule 14 (expression_log -> not expression expression_log_point .)
     RPAREN          reduce using rule 14 (expression_log -> not expression expression_log_point .)
-    AND             shift and go to state 215
-    OR              shift and go to state 216
+    AND             shift and go to state 218
+    OR              shift and go to state 219
 
 
-state 184
+state 186
 
     (21) expression -> exp expression_point2 .
 
@@ -3112,7 +3138,7 @@ state 184
     RPAREN          reduce using rule 21 (expression -> exp expression_point2 .)
 
 
-state 185
+state 187
 
     (22) expression -> exp GREATER_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3125,9 +3151,9 @@ state 185
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 217
+    expression_point               shift and go to state 220
 
-state 186
+state 188
 
     (23) expression -> exp LESS_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3140,9 +3166,9 @@ state 186
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 218
+    expression_point               shift and go to state 221
 
-state 187
+state 189
 
     (24) expression -> exp GREATER_OR_EQUAL_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3155,9 +3181,9 @@ state 187
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 219
+    expression_point               shift and go to state 222
 
-state 188
+state 190
 
     (25) expression -> exp LESS_OR_EQUAL_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3170,9 +3196,9 @@ state 188
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 220
+    expression_point               shift and go to state 223
 
-state 189
+state 191
 
     (26) expression -> exp EQUAL_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3185,9 +3211,9 @@ state 189
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 221
+    expression_point               shift and go to state 224
 
-state 190
+state 192
 
     (27) expression -> exp NOT_EQUAL_THAN . expression_point exp expression_point2
     (28) expression_point -> .
@@ -3200,44 +3226,44 @@ state 190
     TRUE            reduce using rule 28 (expression_point -> .)
     FALSE           reduce using rule 28 (expression_point -> .)
 
-    expression_point               shift and go to state 222
+    expression_point               shift and go to state 225
 
-state 191
+state 193
 
     (59) functions -> FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 . functions
     (59) functions -> . FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 functions
     (60) functions -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     FUNC            shift and go to state 11
-    MAIN            reduce using rule 126 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
 
-    functions                      shift and go to state 223
+    functions                      shift and go to state 226
     empty                          shift and go to state 12
 
-state 192
+state 194
 
     (65) params_aux -> COMMA type ID . params_aux
     (65) params_aux -> . COMMA type ID params_aux
     (66) params_aux -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     COMMA           shift and go to state 123
-    RPAREN          reduce using rule 126 (empty -> .)
+    RPAREN          reduce using rule 129 (empty -> .)
 
-    params_aux                     shift and go to state 224
+    params_aux                     shift and go to state 227
     empty                          shift and go to state 124
 
-state 193
+state 195
 
     (89) list_call -> LBRACKET list_point list_point2 exp list_point3 . list_point4 RBRACKET
     (94) list_point4 -> .
 
     RBRACKET        reduce using rule 94 (list_point4 -> .)
 
-    list_point4                    shift and go to state 225
+    list_point4                    shift and go to state 228
 
-state 194
+state 196
 
     (113) function -> ID LPAREN function_point function_point2 args RPAREN function_point3 . function_point4 function_point5
     (117) function_point4 -> .
@@ -3259,16 +3285,16 @@ state 194
     OR              reduce using rule 117 (function_point4 -> .)
     SEMICOLON       reduce using rule 117 (function_point4 -> .)
 
-    function_point4                shift and go to state 226
+    function_point4                shift and go to state 229
 
-state 195
+state 197
 
     (119) args -> expression_log args_point args_aux .
 
     RPAREN          reduce using rule 119 (args -> expression_log args_point args_aux .)
 
 
-state 196
+state 198
 
     (121) args_aux -> COMMA . expression_log args_point args_aux
     (14) expression_log -> . not expression expression_log_point
@@ -3276,29 +3302,29 @@ state 196
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
-    expression_log                 shift and go to state 227
+    expression_log                 shift and go to state 230
     not                            shift and go to state 118
     empty                          shift and go to state 120
 
-state 197
+state 199
 
     (122) args_aux -> empty .
 
     RPAREN          reduce using rule 122 (args_aux -> empty .)
 
 
-state 198
+state 200
 
     (83) assignment -> ID assignment_point list_call ASSIGN assignment_point2 . expression_log SEMICOLON assignment_point4
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 . READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
@@ -3307,87 +3333,87 @@ state 198
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
-    READ            shift and go to state 229
+    READ            shift and go to state 232
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
-    expression_log                 shift and go to state 228
+    expression_log                 shift and go to state 231
     not                            shift and go to state 118
     empty                          shift and go to state 120
 
-state 199
+state 201
 
     (107) method -> ID LPAREN method_point method_point2 args . RPAREN method_point3 method_point4 method_point5 SEMICOLON
 
-    RPAREN          shift and go to state 230
+    RPAREN          shift and go to state 233
 
 
-state 200
+state 202
 
     (95) condition -> IF LPAREN expression_log RPAREN condition_point . block else condition_point2
     (73) block -> . LBRACE statements RBRACE
 
     LBRACE          shift and go to state 42
 
-    block                          shift and go to state 231
+    block                          shift and go to state 234
 
-state 201
+state 203
 
     (101) write -> PRINT LPAREN expression_log write_point RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 232
+    SEMICOLON       shift and go to state 235
 
 
-state 202
+state 204
 
     (103) loop -> WHILE loop_point LPAREN expression_log RPAREN . loop_point2 block loop_point3
     (105) loop_point2 -> .
 
     LBRACE          reduce using rule 105 (loop_point2 -> .)
 
-    loop_point2                    shift and go to state 233
+    loop_point2                    shift and go to state 236
 
-state 203
+state 205
 
     (40) factor -> LPAREN factor_point expression_log . RPAREN factor_point2
 
-    RPAREN          shift and go to state 234
+    RPAREN          shift and go to state 237
 
 
-state 204
+state 206
 
-    (130) predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .
+    (133) predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .
 
-    VAR             reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    ID              reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    IF              reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    START           reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    END             reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 130 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    VAR             reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    ID              reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    START           reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    END             reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 133 (predefined_method -> GIRA_IZQ LPAREN exp RPAREN SEMICOLON .)
 
 
-state 205
+state 207
 
     (31) exp -> term exp_point PLUS . exp_point2 exp
     (34) exp_point2 -> .
@@ -3400,9 +3426,9 @@ state 205
     TRUE            reduce using rule 34 (exp_point2 -> .)
     FALSE           reduce using rule 34 (exp_point2 -> .)
 
-    exp_point2                     shift and go to state 235
+    exp_point2                     shift and go to state 238
 
-state 206
+state 208
 
     (32) exp -> term exp_point MINUS . exp_point2 exp
     (34) exp_point2 -> .
@@ -3415,9 +3441,9 @@ state 206
     TRUE            reduce using rule 34 (exp_point2 -> .)
     FALSE           reduce using rule 34 (exp_point2 -> .)
 
-    exp_point2                     shift and go to state 236
+    exp_point2                     shift and go to state 239
 
-state 207
+state 209
 
     (36) term -> factor term_point TIMES . term_point2 term
     (39) term_point2 -> .
@@ -3430,9 +3456,9 @@ state 207
     TRUE            reduce using rule 39 (term_point2 -> .)
     FALSE           reduce using rule 39 (term_point2 -> .)
 
-    term_point2                    shift and go to state 237
+    term_point2                    shift and go to state 240
 
-state 208
+state 210
 
     (37) term -> factor term_point DIVIDES . term_point2 term
     (39) term_point2 -> .
@@ -3445,141 +3471,148 @@ state 208
     TRUE            reduce using rule 39 (term_point2 -> .)
     FALSE           reduce using rule 39 (term_point2 -> .)
 
-    term_point2                    shift and go to state 238
-
-state 209
-
-    (131) predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .
-
-    VAR             reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    ID              reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    IF              reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    START           reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    END             reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 131 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
-
-
-state 210
-
-    (132) predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .
-
-    VAR             reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    ID              reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    IF              reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    START           reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    END             reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 132 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
-
+    term_point2                    shift and go to state 241
 
 state 211
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp . RPAREN SEMICOLON
+    (134) predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .
 
-    RPAREN          shift and go to state 239
+    VAR             reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    ID              reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    START           reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    END             reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 134 (predefined_method -> GIRA_DER LPAREN exp RPAREN SEMICOLON .)
 
 
 state 212
 
-    (136) predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .
+    (135) predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .
 
-    VAR             reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    ID              reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    IF              reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    START           reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    END             reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 136 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    VAR             reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    ID              reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    START           reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    END             reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 135 (predefined_method -> CAMINA LPAREN exp RPAREN SEMICOLON .)
 
 
 state 213
 
-    (137) predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp . RPAREN SEMICOLON
 
-    VAR             reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    ID              reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    IF              reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    START           reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    END             reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 137 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    RPAREN          shift and go to state 242
 
 
 state 214
 
-    (138) predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .
+    (139) predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .
 
-    VAR             reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    ID              reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    IF              reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    PRINT           reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    WHILE           reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    START           reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    RESET           reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    END             reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    RETURN          reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 138 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    VAR             reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    ID              reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    START           reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    END             reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 139 (predefined_method -> DIBUJA_CIRCULO LPAREN exp RPAREN SEMICOLON .)
 
 
 state 215
+
+    (140) predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .
+
+    VAR             reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    ID              reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    START           reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    END             reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 140 (predefined_method -> DIBUJA_ESTRELLA LPAREN exp RPAREN SEMICOLON .)
+
+
+state 216
+
+    (141) predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .
+
+    VAR             reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    ID              reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    IF              reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    PRINT           reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    WHILE           reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    START           reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    RESET           reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    END             reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    RETURN          reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 141 (predefined_method -> COLOR_PLUMA LPAREN string_var RPAREN SEMICOLON .)
+
+
+state 217
+
+    (124) string_var -> ID string_var_point string_var_point2 .
+
+    RPAREN          reduce using rule 124 (string_var -> ID string_var_point string_var_point2 .)
+
+
+state 218
 
     (15) expression_log -> not expression expression_log_point AND . expression_log_point2 expression_log
     (18) expression_log_point2 -> .
@@ -3593,9 +3626,9 @@ state 215
     TRUE            reduce using rule 18 (expression_log_point2 -> .)
     FALSE           reduce using rule 18 (expression_log_point2 -> .)
 
-    expression_log_point2          shift and go to state 240
+    expression_log_point2          shift and go to state 243
 
-state 216
+state 219
 
     (16) expression_log -> not expression expression_log_point OR . expression_log_point2 expression_log
     (18) expression_log_point2 -> .
@@ -3609,119 +3642,11 @@ state 216
     TRUE            reduce using rule 18 (expression_log_point2 -> .)
     FALSE           reduce using rule 18 (expression_log_point2 -> .)
 
-    expression_log_point2          shift and go to state 241
-
-state 217
-
-    (22) expression -> exp GREATER_THAN expression_point . exp expression_point2
-    (30) exp -> . term exp_point
-    (31) exp -> . term exp_point PLUS exp_point2 exp
-    (32) exp -> . term exp_point MINUS exp_point2 exp
-    (35) term -> . factor term_point
-    (36) term -> . factor term_point TIMES term_point2 term
-    (37) term -> . factor term_point DIVIDES term_point2 term
-    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
-    (41) factor -> . var_const
-    (44) var_const -> . ID var_const_point list_call
-    (45) var_const -> . CONST_INT var_const_point2
-    (46) var_const -> . CONST_FLOAT var_const_point3
-    (47) var_const -> . CONST_STRING var_const_point4
-    (48) var_const -> . boolean var_const_point5
-    (49) var_const -> . function
-    (55) boolean -> . TRUE
-    (56) boolean -> . FALSE
-    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
-
-    LPAREN          shift and go to state 139
-    ID              shift and go to state 33
-    CONST_INT       shift and go to state 34
-    CONST_FLOAT     shift and go to state 35
-    CONST_STRING    shift and go to state 36
-    TRUE            shift and go to state 39
-    FALSE           shift and go to state 40
-
-    exp                            shift and go to state 242
-    term                           shift and go to state 141
-    factor                         shift and go to state 142
-    var_const                      shift and go to state 143
-    boolean                        shift and go to state 37
-    function                       shift and go to state 38
-
-state 218
-
-    (23) expression -> exp LESS_THAN expression_point . exp expression_point2
-    (30) exp -> . term exp_point
-    (31) exp -> . term exp_point PLUS exp_point2 exp
-    (32) exp -> . term exp_point MINUS exp_point2 exp
-    (35) term -> . factor term_point
-    (36) term -> . factor term_point TIMES term_point2 term
-    (37) term -> . factor term_point DIVIDES term_point2 term
-    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
-    (41) factor -> . var_const
-    (44) var_const -> . ID var_const_point list_call
-    (45) var_const -> . CONST_INT var_const_point2
-    (46) var_const -> . CONST_FLOAT var_const_point3
-    (47) var_const -> . CONST_STRING var_const_point4
-    (48) var_const -> . boolean var_const_point5
-    (49) var_const -> . function
-    (55) boolean -> . TRUE
-    (56) boolean -> . FALSE
-    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
-
-    LPAREN          shift and go to state 139
-    ID              shift and go to state 33
-    CONST_INT       shift and go to state 34
-    CONST_FLOAT     shift and go to state 35
-    CONST_STRING    shift and go to state 36
-    TRUE            shift and go to state 39
-    FALSE           shift and go to state 40
-
-    exp                            shift and go to state 243
-    term                           shift and go to state 141
-    factor                         shift and go to state 142
-    var_const                      shift and go to state 143
-    boolean                        shift and go to state 37
-    function                       shift and go to state 38
-
-state 219
-
-    (24) expression -> exp GREATER_OR_EQUAL_THAN expression_point . exp expression_point2
-    (30) exp -> . term exp_point
-    (31) exp -> . term exp_point PLUS exp_point2 exp
-    (32) exp -> . term exp_point MINUS exp_point2 exp
-    (35) term -> . factor term_point
-    (36) term -> . factor term_point TIMES term_point2 term
-    (37) term -> . factor term_point DIVIDES term_point2 term
-    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
-    (41) factor -> . var_const
-    (44) var_const -> . ID var_const_point list_call
-    (45) var_const -> . CONST_INT var_const_point2
-    (46) var_const -> . CONST_FLOAT var_const_point3
-    (47) var_const -> . CONST_STRING var_const_point4
-    (48) var_const -> . boolean var_const_point5
-    (49) var_const -> . function
-    (55) boolean -> . TRUE
-    (56) boolean -> . FALSE
-    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
-
-    LPAREN          shift and go to state 139
-    ID              shift and go to state 33
-    CONST_INT       shift and go to state 34
-    CONST_FLOAT     shift and go to state 35
-    CONST_STRING    shift and go to state 36
-    TRUE            shift and go to state 39
-    FALSE           shift and go to state 40
-
-    exp                            shift and go to state 244
-    term                           shift and go to state 141
-    factor                         shift and go to state 142
-    var_const                      shift and go to state 143
-    boolean                        shift and go to state 37
-    function                       shift and go to state 38
+    expression_log_point2          shift and go to state 244
 
 state 220
 
-    (25) expression -> exp LESS_OR_EQUAL_THAN expression_point . exp expression_point2
+    (22) expression -> exp GREATER_THAN expression_point . exp expression_point2
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -3757,7 +3682,7 @@ state 220
 
 state 221
 
-    (26) expression -> exp EQUAL_THAN expression_point . exp expression_point2
+    (23) expression -> exp LESS_THAN expression_point . exp expression_point2
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -3793,7 +3718,7 @@ state 221
 
 state 222
 
-    (27) expression -> exp NOT_EQUAL_THAN expression_point . exp expression_point2
+    (24) expression -> exp GREATER_OR_EQUAL_THAN expression_point . exp expression_point2
     (30) exp -> . term exp_point
     (31) exp -> . term exp_point PLUS exp_point2 exp
     (32) exp -> . term exp_point MINUS exp_point2 exp
@@ -3829,26 +3754,134 @@ state 222
 
 state 223
 
+    (25) expression -> exp LESS_OR_EQUAL_THAN expression_point . exp expression_point2
+    (30) exp -> . term exp_point
+    (31) exp -> . term exp_point PLUS exp_point2 exp
+    (32) exp -> . term exp_point MINUS exp_point2 exp
+    (35) term -> . factor term_point
+    (36) term -> . factor term_point TIMES term_point2 term
+    (37) term -> . factor term_point DIVIDES term_point2 term
+    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
+    (41) factor -> . var_const
+    (44) var_const -> . ID var_const_point list_call
+    (45) var_const -> . CONST_INT var_const_point2
+    (46) var_const -> . CONST_FLOAT var_const_point3
+    (47) var_const -> . CONST_STRING var_const_point4
+    (48) var_const -> . boolean var_const_point5
+    (49) var_const -> . function
+    (55) boolean -> . TRUE
+    (56) boolean -> . FALSE
+    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
+
+    LPAREN          shift and go to state 139
+    ID              shift and go to state 33
+    CONST_INT       shift and go to state 34
+    CONST_FLOAT     shift and go to state 35
+    CONST_STRING    shift and go to state 36
+    TRUE            shift and go to state 39
+    FALSE           shift and go to state 40
+
+    exp                            shift and go to state 248
+    term                           shift and go to state 141
+    factor                         shift and go to state 142
+    var_const                      shift and go to state 143
+    boolean                        shift and go to state 37
+    function                       shift and go to state 38
+
+state 224
+
+    (26) expression -> exp EQUAL_THAN expression_point . exp expression_point2
+    (30) exp -> . term exp_point
+    (31) exp -> . term exp_point PLUS exp_point2 exp
+    (32) exp -> . term exp_point MINUS exp_point2 exp
+    (35) term -> . factor term_point
+    (36) term -> . factor term_point TIMES term_point2 term
+    (37) term -> . factor term_point DIVIDES term_point2 term
+    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
+    (41) factor -> . var_const
+    (44) var_const -> . ID var_const_point list_call
+    (45) var_const -> . CONST_INT var_const_point2
+    (46) var_const -> . CONST_FLOAT var_const_point3
+    (47) var_const -> . CONST_STRING var_const_point4
+    (48) var_const -> . boolean var_const_point5
+    (49) var_const -> . function
+    (55) boolean -> . TRUE
+    (56) boolean -> . FALSE
+    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
+
+    LPAREN          shift and go to state 139
+    ID              shift and go to state 33
+    CONST_INT       shift and go to state 34
+    CONST_FLOAT     shift and go to state 35
+    CONST_STRING    shift and go to state 36
+    TRUE            shift and go to state 39
+    FALSE           shift and go to state 40
+
+    exp                            shift and go to state 249
+    term                           shift and go to state 141
+    factor                         shift and go to state 142
+    var_const                      shift and go to state 143
+    boolean                        shift and go to state 37
+    function                       shift and go to state 38
+
+state 225
+
+    (27) expression -> exp NOT_EQUAL_THAN expression_point . exp expression_point2
+    (30) exp -> . term exp_point
+    (31) exp -> . term exp_point PLUS exp_point2 exp
+    (32) exp -> . term exp_point MINUS exp_point2 exp
+    (35) term -> . factor term_point
+    (36) term -> . factor term_point TIMES term_point2 term
+    (37) term -> . factor term_point DIVIDES term_point2 term
+    (40) factor -> . LPAREN factor_point expression_log RPAREN factor_point2
+    (41) factor -> . var_const
+    (44) var_const -> . ID var_const_point list_call
+    (45) var_const -> . CONST_INT var_const_point2
+    (46) var_const -> . CONST_FLOAT var_const_point3
+    (47) var_const -> . CONST_STRING var_const_point4
+    (48) var_const -> . boolean var_const_point5
+    (49) var_const -> . function
+    (55) boolean -> . TRUE
+    (56) boolean -> . FALSE
+    (113) function -> . ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5
+
+    LPAREN          shift and go to state 139
+    ID              shift and go to state 33
+    CONST_INT       shift and go to state 34
+    CONST_FLOAT     shift and go to state 35
+    CONST_STRING    shift and go to state 36
+    TRUE            shift and go to state 39
+    FALSE           shift and go to state 40
+
+    exp                            shift and go to state 250
+    term                           shift and go to state 141
+    factor                         shift and go to state 142
+    var_const                      shift and go to state 143
+    boolean                        shift and go to state 37
+    function                       shift and go to state 38
+
+state 226
+
     (59) functions -> FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 functions .
 
     MAIN            reduce using rule 59 (functions -> FUNC type_func ID LPAREN params RPAREN functions_point block functions_point2 functions .)
 
 
-state 224
+state 227
 
     (65) params_aux -> COMMA type ID params_aux .
 
     RPAREN          reduce using rule 65 (params_aux -> COMMA type ID params_aux .)
 
 
-state 225
+state 228
 
     (89) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 . RBRACKET
 
-    RBRACKET        shift and go to state 248
+    RBRACKET        shift and go to state 251
 
 
-state 226
+state 229
 
     (113) function -> ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 . function_point5
     (118) function_point5 -> .
@@ -3870,9 +3903,9 @@ state 226
     OR              reduce using rule 118 (function_point5 -> .)
     SEMICOLON       reduce using rule 118 (function_point5 -> .)
 
-    function_point5                shift and go to state 249
+    function_point5                shift and go to state 252
 
-state 227
+state 230
 
     (121) args_aux -> COMMA expression_log . args_point args_aux
     (123) args_point -> .
@@ -3880,63 +3913,63 @@ state 227
     COMMA           reduce using rule 123 (args_point -> .)
     RPAREN          reduce using rule 123 (args_point -> .)
 
-    args_point                     shift and go to state 250
+    args_point                     shift and go to state 253
 
-state 228
+state 231
 
     (83) assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log . SEMICOLON assignment_point4
 
-    SEMICOLON       shift and go to state 251
+    SEMICOLON       shift and go to state 254
 
 
-state 229
+state 232
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ . LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
 
-    LPAREN          shift and go to state 252
+    LPAREN          shift and go to state 255
 
 
-state 230
+state 233
 
     (107) method -> ID LPAREN method_point method_point2 args RPAREN . method_point3 method_point4 method_point5 SEMICOLON
     (110) method_point3 -> .
 
     SEMICOLON       reduce using rule 110 (method_point3 -> .)
 
-    method_point3                  shift and go to state 253
+    method_point3                  shift and go to state 256
 
-state 231
+state 234
 
     (95) condition -> IF LPAREN expression_log RPAREN condition_point block . else condition_point2
     (98) else -> . ELSE else_point block
     (99) else -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
-    ELSE            shift and go to state 255
-    VAR             reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    IF              reduce using rule 126 (empty -> .)
-    PRINT           reduce using rule 126 (empty -> .)
-    WHILE           reduce using rule 126 (empty -> .)
-    START           reduce using rule 126 (empty -> .)
-    RESET           reduce using rule 126 (empty -> .)
-    END             reduce using rule 126 (empty -> .)
-    GIRA_IZQ        reduce using rule 126 (empty -> .)
-    GIRA_DER        reduce using rule 126 (empty -> .)
-    CAMINA          reduce using rule 126 (empty -> .)
-    SI_DIBUJA       reduce using rule 126 (empty -> .)
-    NO_DIBUJA       reduce using rule 126 (empty -> .)
-    DIBUJA_POLIGONO reduce using rule 126 (empty -> .)
-    DIBUJA_CIRCULO  reduce using rule 126 (empty -> .)
-    DIBUJA_ESTRELLA reduce using rule 126 (empty -> .)
-    COLOR_PLUMA     reduce using rule 126 (empty -> .)
-    RETURN          reduce using rule 126 (empty -> .)
-    RBRACE          reduce using rule 126 (empty -> .)
+    ELSE            shift and go to state 258
+    VAR             reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    IF              reduce using rule 129 (empty -> .)
+    PRINT           reduce using rule 129 (empty -> .)
+    WHILE           reduce using rule 129 (empty -> .)
+    START           reduce using rule 129 (empty -> .)
+    RESET           reduce using rule 129 (empty -> .)
+    END             reduce using rule 129 (empty -> .)
+    GIRA_IZQ        reduce using rule 129 (empty -> .)
+    GIRA_DER        reduce using rule 129 (empty -> .)
+    CAMINA          reduce using rule 129 (empty -> .)
+    SI_DIBUJA       reduce using rule 129 (empty -> .)
+    NO_DIBUJA       reduce using rule 129 (empty -> .)
+    DIBUJA_POLIGONO reduce using rule 129 (empty -> .)
+    DIBUJA_CIRCULO  reduce using rule 129 (empty -> .)
+    DIBUJA_ESTRELLA reduce using rule 129 (empty -> .)
+    COLOR_PLUMA     reduce using rule 129 (empty -> .)
+    RETURN          reduce using rule 129 (empty -> .)
+    RBRACE          reduce using rule 129 (empty -> .)
 
-    else                           shift and go to state 254
-    empty                          shift and go to state 256
+    else                           shift and go to state 257
+    empty                          shift and go to state 259
 
-state 232
+state 235
 
     (101) write -> PRINT LPAREN expression_log write_point RPAREN SEMICOLON .
 
@@ -3961,16 +3994,16 @@ state 232
     RBRACE          reduce using rule 101 (write -> PRINT LPAREN expression_log write_point RPAREN SEMICOLON .)
 
 
-state 233
+state 236
 
     (103) loop -> WHILE loop_point LPAREN expression_log RPAREN loop_point2 . block loop_point3
     (73) block -> . LBRACE statements RBRACE
 
     LBRACE          shift and go to state 42
 
-    block                          shift and go to state 257
+    block                          shift and go to state 260
 
-state 234
+state 237
 
     (40) factor -> LPAREN factor_point expression_log RPAREN . factor_point2
     (43) factor_point2 -> .
@@ -3992,9 +4025,9 @@ state 234
     SEMICOLON       reduce using rule 43 (factor_point2 -> .)
     RBRACKET        reduce using rule 43 (factor_point2 -> .)
 
-    factor_point2                  shift and go to state 258
+    factor_point2                  shift and go to state 261
 
-state 235
+state 238
 
     (31) exp -> term exp_point PLUS exp_point2 . exp
     (30) exp -> . term exp_point
@@ -4024,13 +4057,13 @@ state 235
     FALSE           shift and go to state 40
 
     term                           shift and go to state 141
-    exp                            shift and go to state 259
+    exp                            shift and go to state 262
     factor                         shift and go to state 142
     var_const                      shift and go to state 143
     boolean                        shift and go to state 37
     function                       shift and go to state 38
 
-state 236
+state 239
 
     (32) exp -> term exp_point MINUS exp_point2 . exp
     (30) exp -> . term exp_point
@@ -4060,13 +4093,13 @@ state 236
     FALSE           shift and go to state 40
 
     term                           shift and go to state 141
-    exp                            shift and go to state 260
+    exp                            shift and go to state 263
     factor                         shift and go to state 142
     var_const                      shift and go to state 143
     boolean                        shift and go to state 37
     function                       shift and go to state 38
 
-state 237
+state 240
 
     (36) term -> factor term_point TIMES term_point2 . term
     (35) term -> . factor term_point
@@ -4093,12 +4126,12 @@ state 237
     FALSE           shift and go to state 40
 
     factor                         shift and go to state 142
-    term                           shift and go to state 261
+    term                           shift and go to state 264
     var_const                      shift and go to state 143
     boolean                        shift and go to state 37
     function                       shift and go to state 38
 
-state 238
+state 241
 
     (37) term -> factor term_point DIVIDES term_point2 . term
     (35) term -> . factor term_point
@@ -4125,19 +4158,19 @@ state 238
     FALSE           shift and go to state 40
 
     factor                         shift and go to state 142
-    term                           shift and go to state 262
+    term                           shift and go to state 265
     var_const                      shift and go to state 143
     boolean                        shift and go to state 37
     function                       shift and go to state 38
 
-state 239
+state 242
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN . SEMICOLON
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 263
+    SEMICOLON       shift and go to state 266
 
 
-state 240
+state 243
 
     (15) expression_log -> not expression expression_log_point AND expression_log_point2 . expression_log
     (14) expression_log -> . not expression expression_log_point
@@ -4145,22 +4178,22 @@ state 240
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     not                            shift and go to state 118
-    expression_log                 shift and go to state 264
+    expression_log                 shift and go to state 267
     empty                          shift and go to state 120
 
-state 241
+state 244
 
     (16) expression_log -> not expression expression_log_point OR expression_log_point2 . expression_log
     (14) expression_log -> . not expression expression_log_point
@@ -4168,63 +4201,24 @@ state 241
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
     not                            shift and go to state 118
-    expression_log                 shift and go to state 265
+    expression_log                 shift and go to state 268
     empty                          shift and go to state 120
-
-state 242
-
-    (22) expression -> exp GREATER_THAN expression_point exp . expression_point2
-    (29) expression_point2 -> .
-
-    AND             reduce using rule 29 (expression_point2 -> .)
-    OR              reduce using rule 29 (expression_point2 -> .)
-    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
-    COMMA           reduce using rule 29 (expression_point2 -> .)
-    RPAREN          reduce using rule 29 (expression_point2 -> .)
-
-    expression_point2              shift and go to state 266
-
-state 243
-
-    (23) expression -> exp LESS_THAN expression_point exp . expression_point2
-    (29) expression_point2 -> .
-
-    AND             reduce using rule 29 (expression_point2 -> .)
-    OR              reduce using rule 29 (expression_point2 -> .)
-    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
-    COMMA           reduce using rule 29 (expression_point2 -> .)
-    RPAREN          reduce using rule 29 (expression_point2 -> .)
-
-    expression_point2              shift and go to state 267
-
-state 244
-
-    (24) expression -> exp GREATER_OR_EQUAL_THAN expression_point exp . expression_point2
-    (29) expression_point2 -> .
-
-    AND             reduce using rule 29 (expression_point2 -> .)
-    OR              reduce using rule 29 (expression_point2 -> .)
-    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
-    COMMA           reduce using rule 29 (expression_point2 -> .)
-    RPAREN          reduce using rule 29 (expression_point2 -> .)
-
-    expression_point2              shift and go to state 268
 
 state 245
 
-    (25) expression -> exp LESS_OR_EQUAL_THAN expression_point exp . expression_point2
+    (22) expression -> exp GREATER_THAN expression_point exp . expression_point2
     (29) expression_point2 -> .
 
     AND             reduce using rule 29 (expression_point2 -> .)
@@ -4237,7 +4231,7 @@ state 245
 
 state 246
 
-    (26) expression -> exp EQUAL_THAN expression_point exp . expression_point2
+    (23) expression -> exp LESS_THAN expression_point exp . expression_point2
     (29) expression_point2 -> .
 
     AND             reduce using rule 29 (expression_point2 -> .)
@@ -4250,7 +4244,7 @@ state 246
 
 state 247
 
-    (27) expression -> exp NOT_EQUAL_THAN expression_point exp . expression_point2
+    (24) expression -> exp GREATER_OR_EQUAL_THAN expression_point exp . expression_point2
     (29) expression_point2 -> .
 
     AND             reduce using rule 29 (expression_point2 -> .)
@@ -4262,6 +4256,45 @@ state 247
     expression_point2              shift and go to state 271
 
 state 248
+
+    (25) expression -> exp LESS_OR_EQUAL_THAN expression_point exp . expression_point2
+    (29) expression_point2 -> .
+
+    AND             reduce using rule 29 (expression_point2 -> .)
+    OR              reduce using rule 29 (expression_point2 -> .)
+    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
+    COMMA           reduce using rule 29 (expression_point2 -> .)
+    RPAREN          reduce using rule 29 (expression_point2 -> .)
+
+    expression_point2              shift and go to state 272
+
+state 249
+
+    (26) expression -> exp EQUAL_THAN expression_point exp . expression_point2
+    (29) expression_point2 -> .
+
+    AND             reduce using rule 29 (expression_point2 -> .)
+    OR              reduce using rule 29 (expression_point2 -> .)
+    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
+    COMMA           reduce using rule 29 (expression_point2 -> .)
+    RPAREN          reduce using rule 29 (expression_point2 -> .)
+
+    expression_point2              shift and go to state 273
+
+state 250
+
+    (27) expression -> exp NOT_EQUAL_THAN expression_point exp . expression_point2
+    (29) expression_point2 -> .
+
+    AND             reduce using rule 29 (expression_point2 -> .)
+    OR              reduce using rule 29 (expression_point2 -> .)
+    SEMICOLON       reduce using rule 29 (expression_point2 -> .)
+    COMMA           reduce using rule 29 (expression_point2 -> .)
+    RPAREN          reduce using rule 29 (expression_point2 -> .)
+
+    expression_point2              shift and go to state 274
+
+state 251
 
     (89) list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .
 
@@ -4284,7 +4317,7 @@ state 248
     ASSIGN          reduce using rule 89 (list_call -> LBRACKET list_point list_point2 exp list_point3 list_point4 RBRACKET .)
 
 
-state 249
+state 252
 
     (113) function -> ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5 .
 
@@ -4306,20 +4339,20 @@ state 249
     SEMICOLON       reduce using rule 113 (function -> ID LPAREN function_point function_point2 args RPAREN function_point3 function_point4 function_point5 .)
 
 
-state 250
+state 253
 
     (121) args_aux -> COMMA expression_log args_point . args_aux
     (121) args_aux -> . COMMA expression_log args_point args_aux
     (122) args_aux -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
-    COMMA           shift and go to state 196
-    RPAREN          reduce using rule 126 (empty -> .)
+    COMMA           shift and go to state 198
+    RPAREN          reduce using rule 129 (empty -> .)
 
-    args_aux                       shift and go to state 272
-    empty                          shift and go to state 197
+    args_aux                       shift and go to state 275
+    empty                          shift and go to state 199
 
-state 251
+state 254
 
     (83) assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON . assignment_point4
     (88) assignment_point4 -> .
@@ -4344,9 +4377,9 @@ state 251
     RETURN          reduce using rule 88 (assignment_point4 -> .)
     RBRACE          reduce using rule 88 (assignment_point4 -> .)
 
-    assignment_point4              shift and go to state 273
+    assignment_point4              shift and go to state 276
 
-state 252
+state 255
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN . expression_log RPAREN assignment_point3 SEMICOLON assignment_point4
     (14) expression_log -> . not expression expression_log_point
@@ -4354,31 +4387,31 @@ state 252
     (16) expression_log -> . not expression expression_log_point OR expression_log_point2 expression_log
     (19) not -> . NOT
     (20) not -> . empty
-    (126) empty -> .
+    (129) empty -> .
 
     NOT             shift and go to state 119
-    LPAREN          reduce using rule 126 (empty -> .)
-    ID              reduce using rule 126 (empty -> .)
-    CONST_INT       reduce using rule 126 (empty -> .)
-    CONST_FLOAT     reduce using rule 126 (empty -> .)
-    CONST_STRING    reduce using rule 126 (empty -> .)
-    TRUE            reduce using rule 126 (empty -> .)
-    FALSE           reduce using rule 126 (empty -> .)
+    LPAREN          reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    CONST_INT       reduce using rule 129 (empty -> .)
+    CONST_FLOAT     reduce using rule 129 (empty -> .)
+    CONST_STRING    reduce using rule 129 (empty -> .)
+    TRUE            reduce using rule 129 (empty -> .)
+    FALSE           reduce using rule 129 (empty -> .)
 
-    expression_log                 shift and go to state 274
+    expression_log                 shift and go to state 277
     not                            shift and go to state 118
     empty                          shift and go to state 120
 
-state 253
+state 256
 
     (107) method -> ID LPAREN method_point method_point2 args RPAREN method_point3 . method_point4 method_point5 SEMICOLON
     (111) method_point4 -> .
 
     SEMICOLON       reduce using rule 111 (method_point4 -> .)
 
-    method_point4                  shift and go to state 275
+    method_point4                  shift and go to state 278
 
-state 254
+state 257
 
     (95) condition -> IF LPAREN expression_log RPAREN condition_point block else . condition_point2
     (97) condition_point2 -> .
@@ -4403,18 +4436,18 @@ state 254
     RETURN          reduce using rule 97 (condition_point2 -> .)
     RBRACE          reduce using rule 97 (condition_point2 -> .)
 
-    condition_point2               shift and go to state 276
+    condition_point2               shift and go to state 279
 
-state 255
+state 258
 
     (98) else -> ELSE . else_point block
     (100) else_point -> .
 
     LBRACE          reduce using rule 100 (else_point -> .)
 
-    else_point                     shift and go to state 277
+    else_point                     shift and go to state 280
 
-state 256
+state 259
 
     (99) else -> empty .
 
@@ -4439,7 +4472,7 @@ state 256
     RBRACE          reduce using rule 99 (else -> empty .)
 
 
-state 257
+state 260
 
     (103) loop -> WHILE loop_point LPAREN expression_log RPAREN loop_point2 block . loop_point3
     (106) loop_point3 -> .
@@ -4464,9 +4497,9 @@ state 257
     RETURN          reduce using rule 106 (loop_point3 -> .)
     RBRACE          reduce using rule 106 (loop_point3 -> .)
 
-    loop_point3                    shift and go to state 278
+    loop_point3                    shift and go to state 281
 
-state 258
+state 261
 
     (40) factor -> LPAREN factor_point expression_log RPAREN factor_point2 .
 
@@ -4488,7 +4521,7 @@ state 258
     RBRACKET        reduce using rule 40 (factor -> LPAREN factor_point expression_log RPAREN factor_point2 .)
 
 
-state 259
+state 262
 
     (31) exp -> term exp_point PLUS exp_point2 exp .
 
@@ -4506,7 +4539,7 @@ state 259
     RBRACKET        reduce using rule 31 (exp -> term exp_point PLUS exp_point2 exp .)
 
 
-state 260
+state 263
 
     (32) exp -> term exp_point MINUS exp_point2 exp .
 
@@ -4524,7 +4557,7 @@ state 260
     RBRACKET        reduce using rule 32 (exp -> term exp_point MINUS exp_point2 exp .)
 
 
-state 261
+state 264
 
     (36) term -> factor term_point TIMES term_point2 term .
 
@@ -4544,7 +4577,7 @@ state 261
     RBRACKET        reduce using rule 36 (term -> factor term_point TIMES term_point2 term .)
 
 
-state 262
+state 265
 
     (37) term -> factor term_point DIVIDES term_point2 term .
 
@@ -4564,32 +4597,32 @@ state 262
     RBRACKET        reduce using rule 37 (term -> factor term_point DIVIDES term_point2 term .)
 
 
-state 263
+state 266
 
-    (135) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .
+    (138) predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .
 
-    VAR             reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    ID              reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    IF              reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    PRINT           reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    WHILE           reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    START           reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    RESET           reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    END             reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    GIRA_IZQ        reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    GIRA_DER        reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    CAMINA          reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    SI_DIBUJA       reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    NO_DIBUJA       reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    DIBUJA_POLIGONO reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    DIBUJA_CIRCULO  reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    DIBUJA_ESTRELLA reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    COLOR_PLUMA     reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    RETURN          reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
-    RBRACE          reduce using rule 135 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    VAR             reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    ID              reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    IF              reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    PRINT           reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    START           reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    RESET           reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    END             reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    GIRA_IZQ        reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    GIRA_DER        reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    CAMINA          reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    SI_DIBUJA       reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    NO_DIBUJA       reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    DIBUJA_POLIGONO reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    DIBUJA_CIRCULO  reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    DIBUJA_ESTRELLA reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    COLOR_PLUMA     reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 138 (predefined_method -> DIBUJA_POLIGONO LPAREN exp COMMA exp RPAREN SEMICOLON .)
 
 
-state 264
+state 267
 
     (15) expression_log -> not expression expression_log_point AND expression_log_point2 expression_log .
 
@@ -4598,7 +4631,7 @@ state 264
     RPAREN          reduce using rule 15 (expression_log -> not expression expression_log_point AND expression_log_point2 expression_log .)
 
 
-state 265
+state 268
 
     (16) expression_log -> not expression expression_log_point OR expression_log_point2 expression_log .
 
@@ -4607,7 +4640,7 @@ state 265
     RPAREN          reduce using rule 16 (expression_log -> not expression expression_log_point OR expression_log_point2 expression_log .)
 
 
-state 266
+state 269
 
     (22) expression -> exp GREATER_THAN expression_point exp expression_point2 .
 
@@ -4618,7 +4651,7 @@ state 266
     RPAREN          reduce using rule 22 (expression -> exp GREATER_THAN expression_point exp expression_point2 .)
 
 
-state 267
+state 270
 
     (23) expression -> exp LESS_THAN expression_point exp expression_point2 .
 
@@ -4629,7 +4662,7 @@ state 267
     RPAREN          reduce using rule 23 (expression -> exp LESS_THAN expression_point exp expression_point2 .)
 
 
-state 268
+state 271
 
     (24) expression -> exp GREATER_OR_EQUAL_THAN expression_point exp expression_point2 .
 
@@ -4640,7 +4673,7 @@ state 268
     RPAREN          reduce using rule 24 (expression -> exp GREATER_OR_EQUAL_THAN expression_point exp expression_point2 .)
 
 
-state 269
+state 272
 
     (25) expression -> exp LESS_OR_EQUAL_THAN expression_point exp expression_point2 .
 
@@ -4651,7 +4684,7 @@ state 269
     RPAREN          reduce using rule 25 (expression -> exp LESS_OR_EQUAL_THAN expression_point exp expression_point2 .)
 
 
-state 270
+state 273
 
     (26) expression -> exp EQUAL_THAN expression_point exp expression_point2 .
 
@@ -4662,7 +4695,7 @@ state 270
     RPAREN          reduce using rule 26 (expression -> exp EQUAL_THAN expression_point exp expression_point2 .)
 
 
-state 271
+state 274
 
     (27) expression -> exp NOT_EQUAL_THAN expression_point exp expression_point2 .
 
@@ -4673,14 +4706,14 @@ state 271
     RPAREN          reduce using rule 27 (expression -> exp NOT_EQUAL_THAN expression_point exp expression_point2 .)
 
 
-state 272
+state 275
 
     (121) args_aux -> COMMA expression_log args_point args_aux .
 
     RPAREN          reduce using rule 121 (args_aux -> COMMA expression_log args_point args_aux .)
 
 
-state 273
+state 276
 
     (83) assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4 .
 
@@ -4705,23 +4738,23 @@ state 273
     RBRACE          reduce using rule 83 (assignment -> ID assignment_point list_call ASSIGN assignment_point2 expression_log SEMICOLON assignment_point4 .)
 
 
-state 274
+state 277
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log . RPAREN assignment_point3 SEMICOLON assignment_point4
 
-    RPAREN          shift and go to state 279
+    RPAREN          shift and go to state 282
 
 
-state 275
+state 278
 
     (107) method -> ID LPAREN method_point method_point2 args RPAREN method_point3 method_point4 . method_point5 SEMICOLON
     (112) method_point5 -> .
 
     SEMICOLON       reduce using rule 112 (method_point5 -> .)
 
-    method_point5                  shift and go to state 280
+    method_point5                  shift and go to state 283
 
-state 276
+state 279
 
     (95) condition -> IF LPAREN expression_log RPAREN condition_point block else condition_point2 .
 
@@ -4746,16 +4779,16 @@ state 276
     RBRACE          reduce using rule 95 (condition -> IF LPAREN expression_log RPAREN condition_point block else condition_point2 .)
 
 
-state 277
+state 280
 
     (98) else -> ELSE else_point . block
     (73) block -> . LBRACE statements RBRACE
 
     LBRACE          shift and go to state 42
 
-    block                          shift and go to state 281
+    block                          shift and go to state 284
 
-state 278
+state 281
 
     (103) loop -> WHILE loop_point LPAREN expression_log RPAREN loop_point2 block loop_point3 .
 
@@ -4780,23 +4813,23 @@ state 278
     RBRACE          reduce using rule 103 (loop -> WHILE loop_point LPAREN expression_log RPAREN loop_point2 block loop_point3 .)
 
 
-state 279
+state 282
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN . assignment_point3 SEMICOLON assignment_point4
     (87) assignment_point3 -> .
 
     SEMICOLON       reduce using rule 87 (assignment_point3 -> .)
 
-    assignment_point3              shift and go to state 282
+    assignment_point3              shift and go to state 285
 
-state 280
+state 283
 
     (107) method -> ID LPAREN method_point method_point2 args RPAREN method_point3 method_point4 method_point5 . SEMICOLON
 
-    SEMICOLON       shift and go to state 283
+    SEMICOLON       shift and go to state 286
 
 
-state 281
+state 284
 
     (98) else -> ELSE else_point block .
 
@@ -4821,14 +4854,14 @@ state 281
     RBRACE          reduce using rule 98 (else -> ELSE else_point block .)
 
 
-state 282
+state 285
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 . SEMICOLON assignment_point4
 
-    SEMICOLON       shift and go to state 284
+    SEMICOLON       shift and go to state 287
 
 
-state 283
+state 286
 
     (107) method -> ID LPAREN method_point method_point2 args RPAREN method_point3 method_point4 method_point5 SEMICOLON .
 
@@ -4853,7 +4886,7 @@ state 283
     RBRACE          reduce using rule 107 (method -> ID LPAREN method_point method_point2 args RPAREN method_point3 method_point4 method_point5 SEMICOLON .)
 
 
-state 284
+state 287
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON . assignment_point4
     (88) assignment_point4 -> .
@@ -4878,9 +4911,9 @@ state 284
     RETURN          reduce using rule 88 (assignment_point4 -> .)
     RBRACE          reduce using rule 88 (assignment_point4 -> .)
 
-    assignment_point4              shift and go to state 285
+    assignment_point4              shift and go to state 288
 
-state 285
+state 288
 
     (84) assignment -> ID assignment_point list_call ASSIGN assignment_point2 READ LPAREN expression_log RPAREN assignment_point3 SEMICOLON assignment_point4 .
 

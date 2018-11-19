@@ -22,7 +22,6 @@ class Code():
 		self.type_list = []
 		self.list_variable_list = []
 		self.list_variable_flag = False
-		self.operations = ['>', '<', '>=', '<=', '==', '!=']
 		self.return_flag = False
 		self.return_list = []
 

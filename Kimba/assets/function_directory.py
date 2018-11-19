@@ -10,7 +10,7 @@ class FunctionDirectory():
 
     """ Adds a function to the list """
     def add_function(self, func_name, func_type, parameter_list = [],
-     parameter_adresses = []):
+     parameter_addresses = []):
         self.func_list[func_name] = {
             'name' : func_name,
             'return_type' : func_type,
@@ -19,7 +19,7 @@ class FunctionDirectory():
             'parameters' :
             {
                 'types' : parameter_list,
-                'addresses' : parameter_adresses,
+                'addresses' : parameter_addresses,
             },
             'variables' : VarTable(),
             'local_variables_counter' : {
@@ -48,6 +48,14 @@ class FunctionDirectory():
             print("The function does not exist")
             return None
 
+    def get_function_type(self, function_name):
+        """Looks for the type of the function"""""
+        function = self.get_function(function_name)
+        if function is not None:
+            function_type = function['return_type']
+            return function_type
+        else:
+            print("This function doesn't exists")
 
     """ Adds a paramter to a function """
     def add_parameter_to_function(self, func_name, type_list, address_list):
@@ -57,6 +65,14 @@ class FunctionDirectory():
             function['parameters']['address'] = address_list
         else:
             print("The function does not exist")
+
+    def get_function_quadruple_number(self, function_name,):
+        """Retrieves the quadruple number of a function"""
+        function = self.get_function(function_name)
+        if function is not None:
+            return function['quadruple_number']
+        else:
+            print("The function you are trying to retrieve its quadruple doesn't exists")
 
 
     def set_function_quadruple_number(self, function_name, quadruple_number):
@@ -87,7 +103,7 @@ class FunctionDirectory():
 
 
     def add_variable_to_function(self, function_name, variable_type,
-            variable_name, variable_adress=0):
+            variable_name, variable_address=0):
         """Adds a variable to its function variable table"""
         function = self.get_function(function_name)
         if function is not None:
@@ -96,7 +112,7 @@ class FunctionDirectory():
             else:
                 # Adds the variable to the variable table and increments the
                 # number of local variables the function will use
-                function['variables'].add_var(variable_type, variable_name, variable_adress)
+                function['variables'].add_var(variable_type, variable_name, variable_address)
                 function['local_variables_counter'][variable_type] += 1
         else:
             print("The function you are trying to add the variable doesnt exists")
@@ -127,8 +143,16 @@ class FunctionDirectory():
             else:
                 return None
         else:
-            print("The function you are trying to find when looking for the" +
-                "variable doesn't exists")
+            print("The function you are trying to find when looking for the" + "variable doesn't exists")
+
+    def get_function_parameters(self, function_name):
+        """Returns the parameters of the function if exists"""
+        function = self.get_function(function_name)
+        if function is not None:
+            return function['parameters']
+        else:
+            print("The function you are trying to retrieve its parameters" +
+                "doesnt exists")
 
     def add_temporal_to_function(self, function_name, temporal_type):
         """Increments the number of temporals the function has"""

@@ -44,25 +44,6 @@ class Memory():
                 value = False
             return self.boolean_segment.set_address(value)
 
-    def get_address_list(self, segment_type, num_of_addresses, value=None):
-        if segment_type == 'int':
-            if value is None:
-                value = 0
-            return self.int_segment.set_address_list(num_of_addresses, value)
-        elif segment_type == 'float':
-            if value is None:
-                value = 0.0
-            return self.float_segment.set_address_list(num_of_addresses, value)
-        elif segment_type == 'string':
-            if value is None:
-                value = ""
-            return self.string_segment.set_address_list(num_of_addresses, value)
-        elif segment_type == 'boolean':
-            if value is None:
-                value = False
-            return self.boolean_segment.set_address_list(num_of_addresses, value)
-
-
     def get_type(self, address):
         if (address >= self.int_initial_address and address <=
             self.int_last_address):
@@ -90,16 +71,23 @@ class Memory():
         elif segment_type == 'boolean':
             return self.boolean_segment.get_value(address)
 
-    def set_value(self, address, value):
-        segment_type = self.get_type(address)
+    def get_address_list(self, segment_type, num_of_addresses, value=None):
         if segment_type == 'int':
-            self.int_segment.set_value(value, address)
+            if value is None:
+                value = 0
+            return self.int_segment.set_address_list(num_of_addresses, value)
         elif segment_type == 'float':
-            return self.float_segment.set_value(value, address)
+            if value is None:
+                value = 0.0
+            return self.float_segment.set_address_list(num_of_addresses, value)
         elif segment_type == 'string':
-            return self.string_segment.set_value(value, address)
+            if value is None:
+                value = ""
+            return self.string_segment.set_address_list(num_of_addresses, value)
         elif segment_type == 'boolean':
-            return self.boolean_segment.set_value(address, value)
+            if value is None:
+                value = False
+            return self.boolean_segment.set_address_list(num_of_addresses, value)
 
     def in_segment(self, segment_type, value):
         if segment_type == 'int':
@@ -110,6 +98,17 @@ class Memory():
             return self.string_segment.value_in_segment(value)
         elif segment_type == 'boolean':
             return self.boolean_segment.value_in_segment(value)
+            
+    def set_value(self, address, value):
+        segment_type = self.get_type(address)
+        if segment_type == 'int':
+            self.int_segment.set_value(value, address)
+        elif segment_type == 'float':
+            return self.float_segment.set_value(value, address)
+        elif segment_type == 'string':
+            return self.string_segment.set_value(value, address)
+        elif segment_type == 'boolean':
+            return self.boolean_segment.set_value(address, value)
 
     def reset_memory_segments(self):
         self.int_segment.reset_segment()

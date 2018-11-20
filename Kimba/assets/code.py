@@ -6,7 +6,7 @@ class Code():
 	def __init__(self, global_scope = "", current_scope = ""):
 		self.global_scope = global_scope
 		self.current_scope = current_scope
-		self.memory = MemoryRequest()
+		self.memory_request = MemoryRequest()
 		self.function_directory = FunctionDirectory()
 		self.semantic_cube = SemanticCube()
 		self.quadruple_list = []

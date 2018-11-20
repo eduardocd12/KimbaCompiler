@@ -1,8 +1,7 @@
-from .memory import Memory
+from virtual_machine.memory import Memory
 
 class MemoryRequest():
     def __init__(self):
-        """Class constructor"""
         self.global_memory = Memory('Global', 10000, 4000)
         self.local_memory = Memory('Local', 15000, 4000)
         self.constant_memory = Memory('Constant', 20000, 4000)
@@ -21,45 +20,31 @@ class MemoryRequest():
     	return self.temporal_memory.get_address(value_type, value)
 
     def get_global_address_list(self, value_type, total_addresses, value=None):
-        """Requests a bunch of global addresses"""
         return self.global_memory.get_address_list(value_type,
             total_addresses, value)
 
     def get_local_address_list(self, value_type, total_addresses, value=None):
-        """Requests a bunch of local addresses"""
         return self.global_memory.get_address_list(value_type,
             total_addresses, value)
 
     def get_memory_type(self, address):
         if (address >= self.global_memory.initial_address and address <= self.global_memory.last_address):
+            print("Entro global:" + str(address))
             return 'global'
         elif (address >= self.local_memory.initial_address and address <= self.local_memory.last_address):
+            print("Entro local:"  + str(address))
             return 'local'
         elif (address >= self.temporal_memory.initial_address and address <= self.temporal_memory.last_address):
+            print("Entro temporal:"  + str(address))
             return 'temporal'
         elif (address >= self.constant_memory.initial_address and address <= self.constant_memory.last_address):
+            print("Entro constant:"  + str(address))
             return 'constant'
         else:
             print("Error. Invalid address")
-
-            '''
-    def get_value(self, address):
-      memory_type=self.get_memory_type(address)
-      print("memoryyyyyyyyyyyyyyyyyyyyyyyy")
-      if memory_type=='global':
-        return self.get_global_address(address)
-      elif memory_type=='local':
-        return self.get_local_address(address)
-      elif memory_type=='constant':
-        return self.get_constant_address(address)
-      elif memory_type=='temporal':
-        return self.get_temporal_address(address)
-      else:
-        print("Error. Invalid memory type")
-        '''
+            sys.exit()
 
     def get_value(self, address):
-        """Returns a value according of the address"""
         memory_type = self.get_memory_type(address)
         if memory_type == 'global':
             return self.global_memory.get_value(address)
@@ -69,7 +54,6 @@ class MemoryRequest():
             return self.temporal_memory.get_value(address)
         elif memory_type == 'constant':
             return self.constant_memory.get_value(address)
-
 
     def set_value(self, address, value):
       type=self.get_memory_type(address)
@@ -83,13 +67,13 @@ class MemoryRequest():
         self.temporal_memory.set_value(address, value)
       else:
         print("Error. Invalid memory type")
+        sys,exit()
 
     def restart_memory(self):
       self.local_memory.reset_memory_segments()
       self.temporal_memory.reset_memory_segments()
 
     def check_existing_constant_value(self, value_type, value):
-        """Checks if the value exists in the constant memory"""
         return self.constant_memory.in_segment(value_type, value)
 
     def print_memory(self, memory_type, segment_type):
@@ -103,3 +87,4 @@ class MemoryRequest():
         self.constant_memory.print_segment(segment_type)
       else:
         print("Error. Invalid memory type")
+        sys.exit()

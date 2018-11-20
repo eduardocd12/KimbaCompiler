@@ -69,9 +69,9 @@ def p_vars_point(p):
 		variable_declared = my_code.function_directory.check_existing_variable(my_code.current_scope, variable)
 		if variable_declared == False:
 			if my_code.current_scope == my_code.global_scope:
-				variable_address = my_code.memory.get_global_address(variable_type)
+				variable_address = my_code.memory_request.get_global_address(variable_type)
 			else:
-				variable_address = my_code.memory.get_local_address(variable_type)
+				variable_address = my_code.memory_request.get_local_address(variable_type)
 			my_code.function_directory.add_variable_to_function(my_code.current_scope, variable_type, variable, variable_address)
 	del my_code.temporal_variables[:]
 
@@ -83,9 +83,9 @@ def p_vars_point2(p):
 	variable_declared = my_code.function_directory.check_existing_variable(my_code.current_scope, variable['name'])
 	if variable_declared == False:
 		if my_code.current_scope == my_code.global_scope:
-			variable_address = my_code.memory.get_global_address_list(variable_type, variable['upper_limit'])
+			variable_address = my_code.memory_request.get_global_address_list(variable_type, variable['upper_limit'])
 		else:
-			variable_address = my_code.memory.get_local_address_list(variable_type, variable['upper_limit'])
+			variable_address = my_code.memory_request.get_local_address_list(variable_type, variable['upper_limit'])
 		variable['type'] = variable_type
 		variable['memory_address'] = variable_address
 		my_code.function_directory.add_list_variable_to_function(my_code.current_scope, variable)
@@ -94,7 +94,7 @@ def p_list_declaration_point(p):
 	'''list_declaration_point : '''
 	dimensioned_variable_name = p[-4]
 	dimension_size_address = my_code.operand_list.pop()
-	dimension_size = my_code.memory.get_value(dimension_size_address)
+	dimension_size = my_code.memory_request.get_value(dimension_size_address)
 	dimension_type = my_code.type_list.pop()
 	if dimension_type != 'int':
 		print("Array indexes should be of type int")
@@ -223,40 +223,40 @@ def p_var_const_point(p):
 
 def p_var_const_point2(p):
 	'''var_const_point2 : '''
-	constant_address = my_code.memory.check_existing_constant_value('int', int(p[-1]))
+	constant_address = my_code.memory_request.check_existing_constant_value('int', int(p[-1]))
 	if constant_address is None:
-		constant_address = my_code.memory.get_constant_address('int', int(p[-1]))
+		constant_address = my_code.memory_request.get_constant_address('int', int(p[-1]))
 	my_code.operand_list.append(constant_address)
 	my_code.type_list.append('int')
 
 def p_var_const_point3(p):
 	'''var_const_point3 : '''
-	constant_address = my_code.memory.check_existing_constant_value('float', float(p[-1]))
+	constant_address = my_code.memory_request.check_existing_constant_value('float', float(p[-1]))
 	if constant_address is None:
-		constant_address = my_code.memory.get_constant_address('float', float(p[-1]))
+		constant_address = my_code.memory_request.get_constant_address('float', float(p[-1]))
 	my_code.operand_list.append(constant_address)
 	my_code.type_list.append('float')
 
 def p_var_const_point4(p):
 	'''var_const_point4 : '''
-	constant_address = my_code.memory.check_existing_constant_value('string', str(p[-1]))
+	constant_address = my_code.memory_request.check_existing_constant_value('string', str(p[-1]))
 	if constant_address is None:
-		constant_address = my_code.memory.get_constant_address('string', str(p[-1]))
+		constant_address = my_code.memory_request.get_constant_address('string', str(p[-1]))
 	my_code.operand_list.append(constant_address)
 	my_code.type_list.append('string')
 
 def p_var_const_point5(p):
 	'''var_const_point5 : '''
 	if p[-1] == "True":
-		constant_address = my_code.memory.check_existing_constant_value('boolean', True)
+		constant_address = my_code.memory_request.check_existing_constant_value('boolean', True)
 		if constant_address is None:
-			constant_address = my_code.memory.get_constant_address('boolean', True)
+			constant_address = my_code.memory_request.get_constant_address('boolean', True)
 		my_code.operand_list.append(constant_address)
 		my_code.type_list.append('boolean')
 	else:
-		constant_address = my_code.memory.check_existing_constant_value('boolean', False)
+		constant_address = my_code.memory_request.check_existing_constant_value('boolean', False)
 		if constant_address is None:
-			constant_address = my_code.memory.get_constant_address('boolean', False)
+			constant_address = my_code.memory_request.get_constant_address('boolean', False)
 		my_code.operand_list.append(constant_address)
 		my_code.type_list.append('boolean')
 
@@ -329,13 +329,13 @@ def p_functions_point(p):
 
 	my_code.function_directory.set_function_quadruple_number(my_code.current_scope, my_code.quadruple_number)
 	if function_type != 'void':
-		function_address = my_code.memory.get_global_address(function_type)
+		function_address = my_code.memory_request.get_global_address(function_type)
 		my_code.function_directory.set_function_address(my_code.current_scope, function_address)
 
 	parameters = zip(my_code.temporal_parameters_names, my_code.temporal_parameters_types)
 
 	for parameter_name, parameter_type in parameters:
-		parameter_address = my_code.memory.get_local_address(parameter_type)
+		parameter_address = my_code.memory_request.get_local_address(parameter_type)
 		parameter_addresses_list.append(parameter_address)
 		my_code.function_directory.add_variable_to_function(my_code.current_scope, parameter_type, parameter_name, parameter_address)
 
@@ -366,7 +366,7 @@ def p_functions_point2(p):
 	my_code.return_flag = False
 
 	my_code.current_scope = my_code.global_scope
-	my_code.memory.restart_memory()
+	my_code.memory_request.restart_memory()
 
 def p_type(p):
     '''type : INT
@@ -426,7 +426,7 @@ def p_assignment_point3(p):
 	received_input_address = my_code.operand_list.pop()
 	my_code.type_list.pop()
 	variable_type = my_code.type_list[-1]
-	assignation_address = my_code.memory.get_temporal_address(variable_type)
+	assignation_address = my_code.memory_request.get_temporal_address(variable_type)
 
 	my_code.operand_list.append(assignation_address)
 	my_code.type_list.append(variable_type)
@@ -499,8 +499,8 @@ def p_list_point3(p):
 		quadruple = Quadruple(my_code.quadruple_number, 'VERF_INDEX', index_address, dimensioned_variable['lower_limit'], dimensioned_variable['upper_limit'])
 		my_code.quadruple_list.append(quadruple)
 		my_code.quadruple_number += 1
-		base_address_proxy = my_code.memory.get_global_address('int', dimensioned_variable['memory_address'])
-		index_address_result = my_code.memory.get_global_address('int')
+		base_address_proxy = my_code.memory_request.get_global_address('int', dimensioned_variable['memory_address'])
+		index_address_result = my_code.memory_request.get_global_address('int')
 		quadruple = Quadruple(my_code.quadruple_number, '+', base_address_proxy, index_address, index_address_result)
 		my_code.quadruple_list.append(quadruple)
 		my_code.quadruple_number += 1
@@ -683,7 +683,7 @@ def p_function_point5(p):
 
     #my_code.temporal_variable_counter += 1
 
-    temporal_variable_address = my_code.memory.get_temporal_address(function_type)
+    temporal_variable_address = my_code.memory_request.get_temporal_address(function_type)
     my_code.function_directory.add_temporal_to_function(my_code.current_scope, function_type)
 
     quadruple = Quadruple(my_code.quadruple_number, '=', function_return, None, temporal_variable_address)
@@ -706,15 +706,15 @@ def p_args_aux(p):
 
 def p_args_point(p):
     '''args_point : '''
-    if my_program.temporal_arguments_types:
-        argument = my_program.operand_list.pop()
-        argument_type = my_program.type_list.pop()
-        parameter_type = my_program.temporal_arguments_types.pop(0)
+    if my_code.temporal_arguments_types:
+        argument = my_code.operand_list.pop()
+        argument_type = my_code.type_list.pop()
+        parameter_type = my_code.temporal_arguments_types.pop(0)
 
         if argument_type == parameter_type:
-            quadruple = Quadruple(my_program.quadruple_number, 'PARAMETER', argument, None, None)
-            my_program.quadruple_list.append(quadruple)
-            my_program.quadruple_number += 1
+            quadruple = Quadruple(my_code.quadruple_number, 'PARAMETER', argument, None, None)
+            my_code.quadruple_list.append(quadruple)
+            my_code.quadruple_number += 1
         else:
             print('Argument type mismatch at {0} line '.format(p.lexer.lineno))
             sys.exit()
@@ -748,16 +748,16 @@ def p_string_var_point(p):
 def p_string_var_point2(p):
 	'''string_var_point2 : '''
 	variable = p[-2]
-	variable_type = my_program.type_list[-1]
+	variable_type = my_code.type_list[-1]
 	if variable_type != 'string':
 		print("The variable: " + variable + " is not a string")
 		sys.exit()   
 
 def p_string_var_point3(p):
 	'''string_var_point3 : '''  
-	constant_address = my_code.memory.check_existing_constant_value('string', str(p[-1]))
+	constant_address = my_code.memory_request.check_existing_constant_value('string', str(p[-1]))
 	if constant_address is None:
-		constant_address = my_code.memory.get_constant_address('string', str(p[-1]))
+		constant_address = my_code.memory_request.get_constant_address('string', str(p[-1]))
 	my_code.operand_list.append(constant_address)
 	my_code.type_list.append('string')
 
@@ -809,7 +809,7 @@ def solve_operation(p):
     result_type = my_code.semantic_cube.get_semantic_type(left_type ,
         right_type, operator)
     if result_type != 'error':
-        temporal_variable_address = my_code.memory.get_temporal_address(result_type)
+        temporal_variable_address = my_code.memory_request.get_temporal_address(result_type)
         my_code.function_directory.add_temporal_to_function(my_code.current_scope,
             result_type)
         quadruple = Quadruple(my_code.quadruple_number, operator, left_operand,
@@ -827,5 +827,6 @@ parser = yacc.yacc()
 with open("archivo_entrada.txt") as file_object:
     code = file_object.read()
     parser.parse(code)
-
 my_code.print_quadruples()
+vm = VirtualMachine(my_code.memory_request, my_code.function_directory, my_code.quadruple_list)
+vm.run()
